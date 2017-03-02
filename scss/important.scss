@@ -712,6 +712,12 @@ ul {
 
 	}
 
+	.large-2 {
+
+		@include flex(16.66667%);
+
+	}
+
 	.hide-for-large {
 
 		display: none;
