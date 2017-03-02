@@ -1,0 +1,32 @@
+.anchor-row {
+  border-bottom: 1px solid #dfdfdf;
+  margin: 0 auto;
+  margin-top: 20px; }
+  .anchor-row div {
+    margin-bottom: -24px !important; }
+
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden; }
+
+.anchor-btn {
+  background: url(/wp-content/themes/zespoke/imgs/anchor-btn.png);
+  height: 35px;
+  width: 35px;
+  transition: all 0.5s ease;
+  display: inline-block; }
+
+body .sections .section {
+  height: 262px;
+  position: relative; }
+
+body .sections div {
+  text-align: center;
+  margin-bottom: 20px; }
+  body .sections div:nth-of-type(2n-1) {
+    padding-left: 0; }
+
+/*# sourceMappingURL=kino_anchor_row.css.map */

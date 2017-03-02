@@ -1,0 +1,64 @@
+
+.kino-language-switcher {
+
+	width: 70px;
+	position: relative;
+	cursor: pointer;
+	margin-left: 8px;
+
+	.selected {
+
+		padding-left: 2em;
+		position: relative;
+		text-align: left;
+
+		i {
+
+			&.left {
+
+				position: absolute;
+				left: 0;
+
+			}
+
+			&.right {
+
+				position: absolute;
+				right: 0;
+
+			}
+
+			&.fa-angle-down {
+
+				margin-left: 2em;
+
+			}
+
+			vertical-align: middle;
+			top: 50%;
+			transform: translate(0, 50%);
+			-ms-transform: translate(0, 50%);
+			-webkit-transform: translate(0, 50%);
+
+		}
+
+		
+
+	}
+
+	.other-languages {
+
+		position: absolute;
+		top: 90%;
+		left: 0;
+		right: 0;
+
+	}
+
+	.hidden {
+
+		display: none;
+
+	}
+
+}

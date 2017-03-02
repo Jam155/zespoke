@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,8BAA+B;EAE9B,MAAM,EAAE,eAAe",
+"sources": ["../../scss/parts/kino_featured_products.scss"],
+"names": [],
+"file": "kino_featured_products.css"
+}

@@ -1,6 +1,30 @@
 html, body {
 
 	height: 100%;
+	box-sizing: border-box;
+
+}
+
+h2 {
+
+	font-family: 'Poppins';
+	font-weight: bold;
+	font-size: 16px;
+	color: #4c4c4c;
+
+}
+
+p {
+
+	font-family: 'Varela';
+	font-size: 12px;
+	color: #979696;
+
+}
+
+*,*::before,*::after {
+
+	box-sizing: inherit;
 
 }
 
@@ -272,6 +296,12 @@ body {
 
 }
 
+.owl-carousel.owl-loaded.mobile-slider {
+
+	display:none;
+
+}
+
 body .imageslider .owl-carousel .owl-stage-outer {
 
 	z-index: 999;
@@ -494,6 +524,12 @@ ul {
 
 }
 
+.nopaddingleft {
+
+	padding-left: 0;
+
+}
+
 .column, .columns {
 
 	min-width: 0;
@@ -502,6 +538,9 @@ ul {
 
 .row {
 
+	border-top: solid 1px #dfdfdf;
+	margin-top: 30px;
+	padding-top: 30px;
 	max-width: 66.25rem;
 	margin-left: auto;
 	margin-right: auto;
@@ -539,6 +578,12 @@ ul {
 
 }
 
+.small-4 {
+
+	@include flex(33.33333%);
+
+}
+
 .small-1 {
 
 	@include flex(8.33333%);
@@ -559,6 +604,16 @@ ul {
 	.hide-for-large {
 
 		display: none;
+
+	}
+
+}
+
+@media screen and (max-width: 0em), screen and (min-width: 40em) {
+
+	.show-for-small-only {
+
+		display: none !important;
 
 	}
 
@@ -607,6 +662,12 @@ ul {
 
 	}
 
+	.medium-6 {
+
+		@include flex(50%);
+
+	}
+
 	.medium-4 {
 
 		flex: 0 0 33.3333%;
@@ -630,9 +691,34 @@ ul {
 
 }
 
+.nopaddingleft {
+
+	padding-left: 0;
+
+}
+
+.nopaddingright {
+
+	padding-right: 0;
+
+}
+
+.no-border {
+
+	border: none;
+	margin-top: 15px;
+
+}
+
 .fa {
 
 	display: inline-block;
 	font: normal normal normal 14px/1 FontAwesome;
 
 }
+
+@import 'parts/kino_language_switcher.scss';
+@import 'parts/kino_responsive_cart.scss';
+@import 'parts/kino_three_panels.scss';
+@import 'parts/kino_anchor_row.scss';
+@import 'parts/kino_featured_products.scss';
