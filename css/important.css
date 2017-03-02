@@ -259,7 +259,7 @@ h2 {
   display: none; }
 
 div.trusted {
-  height: 30px;
+  height: 39px;
   width: 276px;
   background-image: url("/wp-content/themes/zespoke/imgs/Customer_Reviews_white.jpg");
   float: right; }
@@ -361,15 +361,6 @@ ul {
   flex: 0 0 8.33333%;
   max-width: 8.33333%; }
 
-@media screen and (min-width: 64em) {
-  .large-12 {
-    -webkit-flex: 0 0 100%;
-    -ms-flex: 0 0 100%;
-    flex: 0 0 100%;
-    max-width: 100%; }
-
-  .hide-for-large {
-    display: none; } }
 @media screen and (max-width: 0em), screen and (min-width: 40em) {
   .show-for-small-only {
     display: none !important; } }
@@ -403,11 +394,23 @@ ul {
     flex: 0 0 66.66667%;
     max-width: 66.6667%; }
 
+  .medium-7 {
+    -webkit-flex: 0 0 58.33333%;
+    -ms-flex: 0 0 58.33333%;
+    flex: 0 0 58.33333%;
+    max-width: 58.33333%; }
+
   .medium-6 {
     -webkit-flex: 0 0 50%;
     -ms-flex: 0 0 50%;
     flex: 0 0 50%;
     max-width: 50%; }
+
+  .medium-5 {
+    -webkit-flex: 0 0 41.66667%;
+    -ms-flex: 0 0 41.66667%;
+    flex: 0 0 41.66667%;
+    max-width: 41.66667%; }
 
   .medium-4 {
     flex: 0 0 33.3333%;
@@ -416,6 +419,39 @@ ul {
   .column, .columns {
     padding-left: 0.625rem;
     padding-right: 0.625rem; } }
+@media screen and (min-width: 64em) {
+  .large-12 {
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%; }
+
+  .large-8 {
+    -webkit-flex: 0 0 66.66667%;
+    -ms-flex: 0 0 66.66667%;
+    flex: 0 0 66.66667%;
+    max-width: 66.66667%; }
+
+  .large-6 {
+    -webkit-flex: 0 0 50%;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%; }
+
+  .large-4 {
+    -webkit-flex: 0 0 33.33333%;
+    -ms-flex: 0 0 33.33333%;
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%; }
+
+  .large-3 {
+    -webkit-flex: 0 0 25%;
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%; }
+
+  .hide-for-large {
+    display: none; } }
 .nopadding {
   padding-left: 0;
   padding-right: 0; }
@@ -445,10 +481,7 @@ ul {
     text-align: left; }
     .kino-language-switcher .selected i {
       vertical-align: middle;
-      top: 50%;
-      transform: translate(0, 50%);
-      -ms-transform: translate(0, 50%);
-      -webkit-transform: translate(0, 50%); }
+      top: 50%; }
       .kino-language-switcher .selected i.left {
         position: absolute;
         left: 0; }

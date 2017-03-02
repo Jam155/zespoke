@@ -439,7 +439,7 @@ h2 {
 
 div.trusted {
 
-	height: 30px;
+	height: 39px;
 	width: 276px;
 	background-image: url('/wp-content/themes/zespoke/imgs/Customer_Reviews_white.jpg');
 	float: right;
@@ -590,25 +590,6 @@ ul {
 
 }
 
-@media screen and (min-width: 64em) {
-
-	.large-12 {
-
-		-webkit-flex: 0 0 100%;
-		-ms-flex: 0 0 100%;
-		flex: 0 0 100%;
-		max-width: 100%;
-
-	}
-
-	.hide-for-large {
-
-		display: none;
-
-	}
-
-}
-
 @media screen and (max-width: 0em), screen and (min-width: 40em) {
 
 	.show-for-small-only {
@@ -662,9 +643,21 @@ ul {
 
 	}
 
+	.medium-7 {
+
+		@include flex(58.33333%);
+
+	}
+
 	.medium-6 {
 
 		@include flex(50%);
+
+	}
+
+	.medium-5 {
+
+		@include flex(41.66667%);
 
 	}
 
@@ -679,6 +672,49 @@ ul {
 
 		padding-left: 0.625rem;
 		padding-right: 0.625rem;
+
+	}
+
+}
+
+@media screen and (min-width: 64em) {
+
+	.large-12 {
+
+		-webkit-flex: 0 0 100%;
+		-ms-flex: 0 0 100%;
+		flex: 0 0 100%;
+		max-width: 100%;
+
+	}
+	
+	.large-8 {
+
+		@include flex(66.66667%);
+
+	}
+
+	.large-6 {
+
+		@include flex(50%);
+
+	}
+
+	.large-4 {
+
+		@include flex(33.33333%);
+
+	}
+
+	.large-3 {
+
+		@include flex(25%);
+
+	}
+
+	.hide-for-large {
+
+		display: none;
 
 	}
 
