@@ -1,0 +1,11 @@
+.responsive-cart-link {
+	color: #030000 !important;
+}
+
+.responsive-cart-link .fa {
+    vertical-align: top;
+}
+
+.responsive-cart-link .amount {
+    padding: 0 4px;
+}

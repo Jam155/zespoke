@@ -1,0 +1,393 @@
+const SITE_BASE_URL = "http://localhost/work/zespoke.com";
+
+function Table(model, mtl, textures, id, scale, rot, x, y) {
+
+	this.id = id;
+	this.table;
+	this.model = model;
+	this.textures = textures;
+	this.mtl = mtl;
+	this.position = new THREE.Vector3(0,0,0);
+	this.scale = new THREE.Vector3(scale,scale,scale);
+	this.rotation = rot;
+	this.translation = new THREE.Vector3(x, y, 0);
+
+	this.manipulation = function() {
+
+		this.table.position.set(this.position.x, this.position.y, this.position.z);
+
+	};
+
+	this.toString = function() {
+
+		//console.log(this.model);
+
+	}
+
+	this.load = function(table) {
+
+
+		var tableObject = JSON.stringify(this) //Keep the Object.
+		var changeYRotation = 0;
+
+		table.position.set(this.position.x + parseFloat(this.translation.x), this.position.y + parseFloat(this.translation.y), this.position.z);// = this.position;
+		table.rotation.y = this.rotation;
+		table.castShadow = true;
+		console.log("Scale of the table:")
+		console.log(table.scale);
+		table.scale.set(this.scale.x, this.scale.y, this.scale.z);
+		console.log(table.scale);
+		console.log(table);
+
+		table.updatePosition = function(translation) {
+
+			var boundingBox = new THREE.Box3().setFromObject(table);
+			var floorBox = new THREE.Box3().setFromObject(floor);
+
+			var yTranslation = (boundingBox.min.y - floorBox.max.y)*-1;
+			this.translateY(yTranslation + parseFloat(translation.y));
+
+		}
+
+		table.updatePosition(this.translation);
+
+		table.traverse(function(object) {
+
+			object.castShadow = true;
+			object.receiveShadow = true;
+
+			if (object instanceof THREE.Mesh) {
+
+				for( var i = 0; i < textures.length; i++) {
+
+					if (object.material.name == textures[i].override) {
+
+						object.material = new THREE.MeshPhongMaterial({name: textures[i].override, map: new THREE.ImageUtils.loadTexture(textures[i].file), shininess: 10, specular: 0x000011, color: 0xFFFFFF});
+						//console.log(object.material);
+
+					}
+
+				}
+
+				if (object.material.name == "Glass") {
+
+					//console.log(object.geometry);
+					console.log(object.material);
+					object.material.color.setHex(0x2A8B93);// = new THREE.Vector3(1,0,0);
+					console.log(object.material);
+					textureSphere = THREE.ImageUtils.loadTexture( "http://" + window.location.hostname + "/image/data/a_textures/serveimage.jpg" );
+                                                        textureSphere.mapping = THREE.SphericalReflectionMapping;
+
+					object.material.envMap = textureSphere;
+					object.material.needsUpdate = true;
+
+
+				}
+			}
+
+			if (object instanceof THREE.Mesh) {
+
+				if (typeof curTextures[object.material.name] == 'undefined' && typeof object.material.texture != 'undefined') {
+
+					curTextures[object.material.name] = object.material.name;
+
+				}
+
+			}
+
+		});
+
+		table.traverse(function(object) {
+
+			object.castShadow = true;
+
+			if (object instanceof THREE.Mesh) {
+
+				if (object.material.name == "Inside") {
+
+					console.log(object.material);
+					var envMap = THREE.ImageUtils.loadTexture('Tex/envmap2.jpg');
+
+				}
+
+				console.log(object.material.name);
+				if (object.material.name == "option_shelf") {
+
+					object.material.color.setHex(0x2A8B93);
+
+				}
+
+			}
+
+		});
+	
+		var host = SITE_BASE_URL; /**window.location.host + window.location.pathname;**/
+
+		var url = "http://" + host + "?route=module/customiser/gettextures&table_id=" + this.id;
+		var textLoc = "http://" + window.location.host + "/assets/files/textures/";
+	
+		var loadTextures = function(json) {
+		
+			console.log("Texture JSON Stuff");
+			console.log(json);
+	
+			table.traverse(function (object) {
+		
+				if (object instanceof THREE.Mesh) {
+		
+					for (var i = 0; i < json.length; i++) {
+			
+						if (object.material.name == json[i].Ref) {
+			
+							console.log(json[i].name.indexOf("No"));
+
+							console.log(json[i].name.indexOf("Yes"));
+							var bMap = new THREE.ImageUtils.loadTexture(SITE_BASE_URL + "/image/data/a_textures/bmp_map.jpg");
+
+							if (json[i].name.indexOf("Yes") >= 0) {
+			
+								object.material.visible = true;
+					
+							} else if (json[i].name.indexOf("No") >= 0) {
+				
+								object.material.visible = false;
+				
+							} else  {
+				
+								var imgUrl = SITE_BASE_URL + "/image/" + json[i].image;
+				
+								console.log("Type Matt:" + typeof json[i].matt);
+								if (json[i].matt === "0") {
+									
+									object.material = new THREE.MeshPhongMaterial({name: json[i].Ref, map: new THREE.ImageUtils.loadTexture(imgUrl), shininess:60, specular: 0x111111, color: 0xFFFFFF, refractionRatio: 0.72, reflectivity: 0.3, visible: object.material.visible});
+									object.material.refractionRatio = 0.11;
+
+									
+									if (json[i].reflection == "1") {
+									
+										textureSphere = THREE.ImageUtils.loadTexture( SITE_BASE_URL + "/image/data/a_textures/serveimage.jpg");
+                                                        			textureSphere.mapping = THREE.SphericalReflectionMapping;
+
+									
+										object.material.envMap = textureSphere;
+                                        					object.material.needsUpdate = true;
+										console.log(object.material);
+
+										if (json[i].loc_intensity != null && json[i].loc_intensity > 0) {
+											
+											console.log("Local");
+											object.material.reflectivity = json[i].loc_intensity;
+
+										} else {
+
+											console.log("Global");
+											object.material.reflectivity = json[i].intensity;
+
+										}
+
+									}
+					
+				
+								} else {
+								
+									object.material = new THREE.MeshLambertMaterial({name: json[i].Ref, map: new THREE.ImageUtils.loadTexture(imgUrl), shininess:100, specular: 0x0a0a0a, visible: object.material.visible});
+								
+								}
+
+								object.material.map.wrapT = THREE.RepeatWrapping;
+								object.material.map.wrapS = THREE.RepeatWrapping;
+								object.material.map.repeat.set(2,4);
+								console.log(object.material.map);
+													
+
+							}
+
+							//object.bumpMap = new THREE.ImageUtils.loadTexture("http://" + window.location.hostname + "/image/data/a_textures/bmp_map.jpg");
+
+							setTimeout(function() {
+
+								Loading.unload();
+
+							}, 500);
+					
+						}
+			
+					}
+		
+				}
+	
+			});
+
+		}
+	
+		jQuery('.dd-option').on('click', function(e) {
+
+			var value = jQuery(this).children('input.dd-option-value').val();
+			var url = SITE_BASE_URL + "?route=module/customiser/getproductoption&option_id=" + value;
+			Loading.load();
+
+			console.log(url);
+		
+			jsonHttpRequest(url, loadTextures);
+		
+			console.log(url);
+	
+		});
+
+		
+		var glassShelf = false;
+		var backPlate = false;
+		var feet = false;
+
+		
+
+			table.traverse(function(object) {
+
+				//console.log(object);
+
+				if (object instanceof THREE.Mesh) {
+
+					if (object.material.name == "Glass") {
+
+						//console.log(object.material.name);
+
+						glassShelf = true;
+
+					} else if (object.material.name == "Backplate") {
+
+						backPlate = true;
+
+					} else if (object.material.name == "Metal") {
+
+						feet = true;
+
+					}
+
+				}
+
+			})
+
+			if (glassShelf) {
+
+				jQuery('body').append('<input type="checkbox" name="Glass" checked="checked" /><label for="Glass">Glass Shelf</label>');
+
+			}
+
+			if (backPlate) {
+
+				jQuery('body').append('<input type="checkbox" name="Backplate" checked="checked" /><label for="Backplate">Back Plate</label>');
+
+			}
+
+			if (feet) {
+
+				jQuery('body').append('<input type="checkbox" name="Metal" checked="checked" /><label for="Metal">Feet</label>');
+
+			}
+
+			for(var i = 0; i < options.length; i++) {
+
+				var enabled = false;
+
+				if (options[i].Enabled == 1) {
+
+					enabled = true;
+
+				}
+
+				jQuery('input[type=checkbox][name=' + options[i].Table_Option + ']').prop('checked', enabled);
+
+				table.traverse(function(object) {
+
+					if (object instanceof THREE.Mesh) {
+
+						if (object.material.name == options[i].Table_Option) {
+
+							object.material.visible = enabled;
+							object.castShadow = enabled;
+
+						}
+
+					}
+
+				})
+
+			}
+
+	
+		table.castShadow = true;
+		table.receiveShadow = true;
+		setCameraLookAt(table);
+		scene.add(table);
+		curTable = table;
+		changed = true;
+	
+		if (jQuery('.dd-option-selected').length > 0 ) {
+	
+			var defaults = jQuery('.dd-option-selected');
+			console.log("Default Values");
+	
+			for (var i = 0; i < defaults.length; i++) {
+		
+				var value = jQuery(defaults[i]).find('input').val();
+				
+				if (value > 0) {
+				
+					var url = SITE_BASE_URL + "?route=module/customiser/getproductoption&option_id=" + value;
+					Loading.load();	
+			
+					jsonHttpRequest(url, loadTextures);
+					
+				}
+			
+		
+			}			
+	
+		}
+		
+		var rad = 0.002;
+		var radiansRotatedBy = 0;
+		
+		function rotateTable() {
+		
+			radiansRotatedBy = radiansRotatedBy + rad;
+			
+			if ((radiansRotatedBy > ((Math.PI/16)*12)) || (radiansRotatedBy < 0)) {
+			
+				//console.log("True");
+				rad = rad * -1;
+			
+			}
+			
+			//console.log(radiansRotatedBy);
+			console.log(table.rotation.y);
+			
+		
+			table.rotateOnAxis(new THREE.Vector3(0, 1, 0), rad);
+			requestAnimationFrame(rotateTable);
+		
+		};
+		
+		//rotateTable();
+
+	}
+
+	this.init = function() {
+
+		var loader;
+
+		if (this.mtl) {
+
+			loader = new THREE.OBJMTLLoader(new THREE.LoadingManager());
+			loader.load(this.model, this.mtl, this.load, this.onProgress, this.onError, this);
+
+		} else {
+
+			loader = new THREE.OBJLoader(new THREE.LoadingManager());
+			loader.load(this.model, this.load, this.onProgress, this.onError, this);
+
+		}
+
+	}
+
+}

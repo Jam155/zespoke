@@ -1,0 +1,388 @@
+
+	var view_angle = 45;
+	var aspect = width/height;
+	var near = 0.1;
+	var far = 1000;
+	var focus = new THREE.Vector3(-10,300,0);
+	var position = new THREE.Vector3(0,0,-200);
+	var changed = true;
+	
+	jQuery(window).on('resize', function(e) {
+		
+		
+		width = jQuery('.customiser').width();
+		height = width/aspect;
+		renderer.setSize(width, height);
+	
+	
+	});
+
+
+	var texture = THREE.ImageUtils.loadTexture('catalog/view/theme/gentle/image/webgl-customiser/background-image.jpg');
+	var backgroundMesh = new THREE.Mesh(
+		new THREE.PlaneBufferGeometry(100,100,0),
+		new THREE.MeshBasicMaterial({
+			map: texture
+
+		}));
+
+	backgroundMesh.doubleSided = true;
+	backgroundMesh.material.depthTest = false;
+	backgroundMesh.material.depthWrite = false;
+
+	//Create the Background Scene.
+
+	var backgroundScene = new THREE.Scene();
+	var backgroundCamera = new THREE.PerspectiveCamera();
+
+	camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
+	backgroundCamera.position.set(0,0,100);
+	backgroundCamera.lookAt(new THREE.Vector3(0,0,0));
+	backgroundScene.add(backgroundCamera);
+	backgroundScene.add(backgroundMesh);
+
+
+
+
+	var width = jQuery('.customiser').width();
+	var aspect = 1.33334;
+	var height = width/aspect;
+
+	var view_angle = 45;
+	var near = 0.1;
+	var far = 1000;
+	var focus = new THREE.Vector3(-10,300,0);
+	var position = new THREE.Vector3(0,0,-200);
+
+	var renderer;
+	var camera;
+	var scene;
+	var manager = new THREE.LoadingManager();
+
+	//var frontTextures = [];
+	//var innerTextures = [];
+	//var outerTextures = [];
+
+	var textures = [];
+	var textureMap = {};
+
+	var spinner;
+
+	var curTable;
+
+	/**var currentFrontMaterial = "G_Front_Back";
+	var currentInnerMaterial = "G_inner_Wrap";
+	var currentOuterMaterial = "G_outer_Wrap";**/
+
+	var floor;
+
+	var objects = [];
+	var options = [];
+
+	var curTextures = {};
+	var LoadingObject = function() {
+
+		this.total = 1;
+		this.loading = 1;
+	
+		this.load = function() {
+	
+			this.total++;
+			this.loading++;
+			console.log(this.loading);
+	
+		}
+	
+		this.unload = function() {
+	
+			if (this.loading > 0) {
+		
+				this.loading--;
+			
+			}
+		
+			console.log(this.loading);
+	
+		}
+	
+		this.loaded = function() {
+	
+			return this.loading <= 0;
+	
+		}
+	
+		this.getTotal = function() {
+	
+			return this.total;
+	
+		}
+
+	}
+
+
+
+	var Loading = new LoadingObject();
+
+	var onProgress = function(xhr) {
+
+		if (xhr.lengthComputable) {
+
+			var percentComplete = xhr.loaded / xhr.total * 100;
+
+		}
+
+	};
+
+	var onError = function(xhr) {
+
+		//console.log('Error loading file.');
+
+	}
+
+	var table;
+	var geometry;
+	var material;
+
+	manager.onProgress = function(item, loaded, total) {
+
+		//console.log(item, loaded, total);
+
+	}	
+
+	var initLighting = function() {
+
+		var ambiantLight = new THREE.AmbientLight(0x444444);
+
+		var light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
+		light.position.set(0.5, 0.4, 1.0);
+		light.shadowCameraVisible = true;
+
+		var spotlight3 = new THREE.PointLight(0xFFFFFF, 0.8);
+		spotlight3.position.set(20, 100, -80);
+		spotlight3.shadowCameraNear = 0.01;
+		spotlight3.shadowDarkness = 0.1;
+		spotlight3.shadowMapWidth = 2048;
+		spotlight3.shadowMapHeight = 2048;
+	
+		scene.add(spotlight3)
+		scene.add(ambiantLight);
+		scene.add(light);
+
+	}
+
+	var addFloor = function() {
+
+		var geometry = new THREE.BoxGeometry(500,5,500);
+		var material = new THREE.MeshPhongMaterial({
+			ambient: 0xFFFFFF,
+			color: 0xFFFFFF,
+			shininess: 20,
+			specular: 0x888888,
+		});
+
+		var cube = new THREE.Mesh(geometry, material); 
+
+		cube.traverse(function(object) {
+
+			object.recieveShadow = true;
+			object.castShadow = false;
+
+		});
+	
+		cube.position.y = -0.5/2;
+		floor = cube;
+
+		//scene.add(cube);
+		cube.receiveShadow = true;
+
+	}
+
+	var animate = function() {
+
+		requestAnimationFrame(animate);
+
+		renderer.clear();
+
+		if (!Loading.loaded()) {
+
+			if (jQuery('.customiser .spinner-loader').length <= 0) {
+			
+				jQuery('.customiser').append("<div class='spinner-loader'>Loading</div>");
+		
+			}	//console.log(spinner);
+		
+
+		} else {
+
+			if (jQuery('.customiser .spinner-loader').length > 0) {
+
+				jQuery('.spinner-loader').remove();
+
+			}
+		
+			for(var i = 0; i < objects.length; i++) {
+
+				objects[i].manipulation();
+
+			}
+		
+			renderer.render(backgroundScene, backgroundCamera);
+			renderer.render(scene, camera);
+		
+		}
+
+	}
+
+	var initRenderer = function() {
+		
+				renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true, antialias: true, alpha: true, precision: "highp"});
+
+				console.log(renderer);
+
+				console.log("Context:");
+				console.log(renderer.getContext());
+
+				renderer.shadowMapEnabled = true;
+				renderer.shadowMapSoft = true;
+				renderer.shadowMapType = THREE.PCFSoftShadowMap;
+				renderer.shadowCameraNear = 3;
+				renderer.shadowCameraFar = camera.far;
+				renderer.shadowCameraFov = 50;
+				renderer.shadowMabBias = 0.0039;
+				renderer.shadowMapDarkness = 0.5;
+				renderer.setSize(width, height);
+				renderer.domElement.id = "customiserCanvas";
+	
+				var dlink = "<a id='customiserImage' download>Picture</a>";
+	
+				jQuery('div.customiser').append(renderer.domElement);
+
+	}
+
+	var initCamera = function() {
+
+		camera = new THREE.PerspectiveCamera(view_angle, aspect, near, far);
+
+		camera.position.set(50,75,-100);
+		//camera.lookAt(focus);
+
+	}
+
+	var setCameraLookAt = function(table) {
+
+		var boundingBox = new THREE.Box3().setFromObject(table);
+		var floorBox = new THREE.Box3().setFromObject(floor);
+	
+		focus.y = 10/**(boundingBox.max.y / 2) + floorBox.max.y;**/
+		focus.z = (boundingBox.max.z - boundingBox.min.z)/2
+		//camera.lookAt(focus);
+
+	}
+
+	var initScene = function() {
+
+		scene = new THREE.Scene();
+
+	}
+
+	var init = function(product) {
+
+		try {
+
+			var baseDir = "http://" + window.location.host + window.location.pathname; 
+			var url = baseDir + "?route=module/customiser/getproducttable&product_id=";
+
+			initCamera();
+			initScene();
+			initRenderer();
+			initLighting();
+			addFloor();
+	
+			jsonHttpRequest(url + product, function(json) {
+	
+				console.log(json);
+				setTable(json['Table_ID'], json['scale']);
+	
+			});
+
+			animate();
+		
+		} catch (err) {
+		
+			jQuery('.image, .image-additional').removeClass('hidden'); 
+		
+		}
+
+	}
+
+	var getAJAXObject = function() {
+
+		var xmlhttp;
+
+		if (window.XMLHttpRequest) {
+
+			xmlhttp = new XMLHttpRequest();
+
+		} else {
+
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+		}
+
+		return xmlhttp;
+
+	}
+
+	var jsonHttpRequest = function(url, method) {
+
+		var xmlhttp = getAJAXObject();
+
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+
+		xmlhttp.onreadystatechange = function() {
+
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+				console.log(url);
+				var response = JSON.parse(xmlhttp.responseText)
+				method(response);
+			
+
+			}
+
+		}
+	
+
+	}
+
+	var addInterface = function() {
+
+		jQuery("body").append('<button id="export" value="Export">Export</button>')
+
+	}
+
+	var setTable = function getModel(tableID, scale) {
+
+		var host = window.location.host + window.location.pathname;
+	
+		var url = "http://" + host + "?route=module/customiser/gettable&table_id=" + tableID
+
+		console.log("URL: " + url);
+		
+		jsonHttpRequest(url, function(json) {
+		
+			console.log("Table Json Object");
+			console.log(json);
+	
+			var baseURL = "/assets/files/";
+			
+			console.log("The Base: " + baseURL);
+			table = new Table(baseURL + json.Object_File, baseURL + json.Material_File, [], tableID, scale);
+			console.log(table);
+
+			table.init(options);
+
+		});
+
+	}

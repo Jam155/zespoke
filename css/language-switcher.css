@@ -1,0 +1,127 @@
+.kino-language-switcher {
+
+	//display: none !important;
+
+}
+
+.kino-language-switcher .hidden {
+
+	display:none;
+
+}
+
+.kino-language-switcher {
+
+	width: 70px;
+	position: relative;
+	cursor: pointer;
+	margin-left: 8px;
+
+}
+
+.kino-language-switcher.active i {
+
+	color: red;
+
+}
+
+.kino-language-switcher .selected {
+
+	padding-left: 2em;
+	position: relative;
+	text-align: left;
+
+}
+
+.kino-language-switcher .selected i {
+
+	position: absolute;
+	vertical-align: middle;
+	top: 50%;
+	transform: translate(0, -50%);
+	-ms-transform: translate(0, -50%);
+	-webkit-transform: translate(0, -50%);
+	
+
+}
+
+.kino-language-switcher .selected i.left {
+
+	position: absolute;
+	left: 0;
+
+}
+
+.kino-language-switcher .selected i.right {
+
+	position: absolute;
+	right: 0;
+
+}
+
+.kino-language-switcher i.fa-angle-down, .language-switcher i.fa-angle-up {
+
+	margin-left: 2em;
+
+}
+
+.kino-language-switcher .other-languages {
+
+	position: absolute;
+	top: 90%;
+	left: 0;
+	right: 0;
+
+}
+
+.kino-language-switcher .other-languages div {
+
+	padding-left: 2em;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	background-color: white;
+	transition: all 1s;
+	text-align: left;
+
+}
+
+.kino-language-switcher .other-languages div:hover {
+
+	background-color: #83bc55;
+	color: white;
+
+}
+
+.kino-language-switcher .other-languages div:hover a {
+
+	color: white;
+
+}
+
+@media screen and (max-width: 448px) {
+
+	.kino-language-switcher {
+		width: 45px;
+		margin-left: 6px;
+		//display: none;
+	}
+
+	.kino-language-switcher .selected {
+
+		padding-left: 1em;
+
+	}
+
+	.kino-language-switcher .other-languages div {
+
+		padding-left: 1em;
+
+	}
+
+	.kino-language-switcher .selected i.right {
+
+		display: none;
+
+	}
+
+}

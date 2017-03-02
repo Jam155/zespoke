@@ -1,0 +1,213 @@
+
+.owl-carousel.owl-loaded.mobile-slider {
+
+	display:none;
+
+}
+
+@media screen and (max-width: 640px) {
+
+	.owl-carousel.owl-loaded.mobile-slider {
+
+		display: block;
+
+	}
+
+	.owl-carousel.owl-loaded.main-slider {
+
+		display: none;
+
+	}
+
+}
+
+article.type-post img {
+
+	max-height: 180px;
+	width: 100%;
+
+}
+
+article.type-post.large-3 img.small_image {
+
+	max-height: 180px;
+	width: 100%;
+	display: block;
+
+}
+
+article.type-post.large-3 img.large_image {
+
+	display: none;
+
+}
+
+article.type-post.large-6 img.large_image {
+
+	max-height: 270px;
+	width: 100%;
+	display: block;
+
+}
+
+article.type-post.large-6 img.small_image {
+
+	display: none;
+
+}
+
+@media screen and (max-width: 1023px) {
+
+	article.type-post.large-6 img.large_image {
+
+		display: none;
+
+	}
+
+	article.type-post.large-6 img.small_image {
+
+		max-height: 180px;
+		width: 100%;
+		display: block;
+
+	}
+
+}
+
+.ac-row.texture img {
+
+	width: 30px;
+	height: 30px;
+
+}
+
+.home-free-sample {
+
+	box-sizing: border-box;
+
+}
+
+/*.blog.row .post img {
+
+	width: 250px;
+	height: 130px;
+
+}
+
+.blog.row .post.main img {
+
+	width: 520px;
+	height: 270px;
+
+}*/
+
+.excerpt {
+
+	max-height: 50px;
+	overflow: hidden;
+
+}
+
+.ac-row.option .amount {
+
+	position: absolute;
+	right: 25px;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.5s linear;
+	
+}
+
+.ac-row.option .amount.visible {
+
+	opacity: 0.45;
+	visibility: visible;
+
+}
+
+.hidden {
+
+	/**display: none;**/
+	visibility: hidden;
+	opacity: 0;
+	transition: all 0.5s linear;
+	height: 0;
+
+}
+
+.no-zopim .zopim {
+
+	display: none !important;
+
+}
+
+/*.zopim {
+
+	display: block !important;
+	opacity: 1 !important;
+
+}*/
+
+div.ddd {
+
+	height: 100%;
+	line-height: 30px;
+
+}
+
+div#pay_with_amazon {
+
+	display: none;
+	padding-right: 5px;
+	float: left !important;
+	margin-top: 0px;
+	width: 50%;
+
+}
+
+li.wc_payment_method.payment_method_amazon_payments_advanced {
+
+	display: none;
+
+}
+
+div.woo_pp_cart_buttons_div {
+
+	display: none;
+
+}
+
+/**.productcatintro .flags {
+
+	display: none;
+
+}**/
+
+/*.item .info-box {
+
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	right: 1em;
+	padding: 1em;
+
+}
+
+.item .info-box .inner {
+
+	background-color: white;
+	margin: 1em;
+
+}*/
+
+li.payment_method_ppec_paypal {
+
+	display: none;
+
+}
+
+ul li.wc_payment_method.payment_method_paypal {
+
+	display: none !important;
+
+}
