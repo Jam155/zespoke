@@ -9,8 +9,9 @@
 				'get_lighting' => true,
 				'get_camera' => true,
 				'customiser_texture_requests' => true,
-				'customiser_texture_request' => true,
+				//'customiser_texture_request' => true,
 				'customiser_all_textures_request' => true,
+				'camera_offset' => true,
 
 			);
 
@@ -111,6 +112,22 @@
 			echo $result;
 			wp_die();
 
+		}
+
+		public function camera_offset()  {
+			
+			if (isset($_REQUEST)) {
+				
+				$product = $_REQUEST['product'];
+
+			}
+
+			//Get the model from the product.
+			$model = get_field('model_post', $product);
+			$offset = get_field('camera_offset', $model);
+
+			echo json_encode($offset);
+			wp_die();
 		}
 
 		private function _get_texture_thumbnail($texture) {
