@@ -96,7 +96,21 @@ function add_scripts() {
 
 	if (is_singular('product')) {
 
-		$cusdir = get_template_directory_uri() . '/js/customiser';
+		global $post;
+
+		$product_id = $post->ID;
+
+		$cusdir = get_template_directory_uri() . '/js/';
+
+		if (!is_null(get_field('model_post', $product_id))) {
+		
+			$cusdir .= 'customiser';	
+
+		} else {
+
+			$cusdir .= 'old_customiser';
+
+		}
 
 		wp_enqueue_script('optionselector', get_template_directory_uri() . '/js/option_selector.js');
 		wp_localize_script('optionselector', 'ajax', array('url' => admin_url('admin-ajax.php')));
