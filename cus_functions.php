@@ -160,7 +160,7 @@
 	add_filter('acf/load_value/key=field_575fd013e1b32', 'load_default_textures', 10, 3);
 	add_filter('acf/load_value/key=field_575ff55ca0ff3', 'load_default_textures', 10, 3);
 
-	/*function customiser_texture_request() {
+	function customiser_texture_request() {
 
 		if (isset($_REQUEST)) {
 		
@@ -207,9 +207,9 @@
 
 		$result = json_encode($result);
 		echo $result;
-		die(0);
+		wp_die();
 
-	}*/
+	}
 
 	/*function get_lighting() {
 
@@ -409,7 +409,7 @@
 
 		$result = json_encode($result);
 		echo $result;
-		wp_die();
+		die();
 	}
 
 	add_action( 'wp_ajax_customiser_get_table_request', 'customiser_get_table_request');
@@ -1175,94 +1175,6 @@
 
 	add_filter('excerpt_length', 'custom_excerpt_length', 999);
 
-	function get_texture_option($texture_id, $category, $checked) {
 
-		$texture = get_post($texture_id); ?>
-		
-		<label class="swatch-label">
-			<input type="radio" <?php echo $checked ? 'checked="checked"' : ''; ?> data-category="<?php echo $category; ?>" data-texture="<?php echo $texture_id; ?>" name="<?php echo $texture->slug; ?>" value="<?php echo get_the_title($texture_id); ?>" />
-			<span class="swatch-icon">
-				<?php $img = get_field('thumbnail', $texture_id);
-				if (is_numeric($img)) {
-					$img = wp_get_attachment_url($img);
-				} ?>
-				<img src="<?php echo $img; ?>" alt="<?php echo get_the_title($texture_id); ?>" />
-			</span>
-				
-		</label>
-
-		<?php
-
-	}
-
-	function get_texture_accordions($post_id) {
-
-		$textures = get_field('textures', $post_id);
-		$defaults = get_field('default_textures', $post_id);
-
-		if ($textures) {
-
-			foreach($textures as $i => $texture_row) {
-
-				$side = $texture_row['side'];
-				$the_default;
-
-				foreach ($defaults as $default) {
-
-					if ($side == $default['side']) {
-						
-						$the_default = $default;
-					}
-
-				}
-
-				$texture_row = $texture_row['texture_values'];
-				$category = $texture_row['category'];
-				$tags = $texture_row[$category];
-				$term = get_term($category);
-				$default_img = get_field('thumbnail', $the_default['texture']->ID);
-				if (is_numeric($default_img)) {
-					$default_img = wp_get_attachment_url($img);
-				} ?>
-
-				<div class="ac-row texture" data-side="<?php echo $side; ?>">
-					<input class="prod-options-ac-ckeck" id="ac-<?php echo $i; ?>" name="accordian-1" type="checkbox">
-
-					<label for="ac-<?php echo $i; ?>"><?php echo $term->name; ?>
-						<span class="prod-set-option">
-							<img src="<?php echo $default_img; ?>" /><?php echo $the_default['texture']->post_title; ?>&nbsp;
-						</span>
-						<i class="fa fa-chevron-down" aria-hidden="true"></i>
-					</label>
-					<article class="ac-small">
-						<?php if ($tags): foreach($tags as $tag => $tag_value): ?>
-						<?php
-
-							$checked = false;
-
-							if (isset($_textures) && $_textures) {
-
-								$checked = $_textures[$term->term_id] == $tag;
-
-							} else {
-
-								$checked = $the_default['texture']->ID == $tag;
-							}
-
-						?>
-
-						<?php get_texture_option($tag, $category, $checked); ?>
-						<?php endforeach; endif; ?>
-
-					</article>
-				</div>
-
-				<?php
-
-			}
-
-		}
-
-	}
 
 ?>
