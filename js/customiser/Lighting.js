@@ -126,4 +126,34 @@ Lighting.prototype.forEach = function(each) {
 
 }
 
+Lighting.prototype.initLighting = function(scene) {
 
+	var Lighting = this;
+
+	jQuery.ajax({
+
+		url: '/wp-admin/admin-ajax.php',
+		type: 'GET',
+		dataType: 'json',
+		data: {
+
+			'action': 'get_lighting',
+
+		},
+		success(data) {
+	
+			data.PointLights.forEach(function(light) {
+
+				var index = Lighting.addPointLight(0xFFFFFF, light.intensity);
+				Lighting.positionLight(index, light.x_position, light.y_position, light.z_position);
+
+			})
+
+			Lighting.addAmbientLight(data.AmbientColour);
+			Lighting.addLightsToScene(scene);
+
+		}
+
+	});
+
+}

@@ -8,6 +8,7 @@ function Table(table, reflection, scale, rot, x, y) {
 	this.reflection = reflection;
 	this.rotating = false;
 	this.targetRotation = 0 //Rotation Target?
+	this.zooming = false;
 
 
 	this.envMap = THREE.ImageUtils.loadTextureCube([
@@ -308,7 +309,6 @@ function Table(table, reflection, scale, rot, x, y) {
 	
 		console.log(table.position);
 		this.table.position.set(0, 0, 0);
-		setCameraLookAt(this.table);
 		scene.add(this.table);
 
 	
@@ -508,13 +508,13 @@ function Table(table, reflection, scale, rot, x, y) {
 	this.zoomIn = function() {
 
 		var zoomInc = 1.01;
-		var targetScale = this.table.scale.x * 1.5;
+		var targetScale = this.table.scale.x * 1.1;
 		var table = this.table;
 
 		function zoom() {
 
 			table.scale.set(table.scale.x * zoomInc, table.scale.y * zoomInc, table.scale.z * zoomInc);
-			zoomInc = zoomInc * 1.1;
+			zoomInc = zoomInc * 1.01;
 
 			if (table.scale.x < targetScale) {
 
@@ -522,11 +522,20 @@ function Table(table, reflection, scale, rot, x, y) {
 
 				requestAnimationFrame(zoom);
 
+			} else {
+
+				//table.zooming = false;
+
 			}
 
 		}
 
-		requestAnimationFrame(zoom);
+		//if (!this.zooming) {
+
+			this.zooming = true;
+			requestAnimationFrame(zoom);
+
+		//}
 		//var targetScale = this.table.scale.x * 2;
 
 
@@ -535,26 +544,44 @@ function Table(table, reflection, scale, rot, x, y) {
 
 	}
 
+	this.zoomBy = function(zoom) {
+
+		var table = this.table;
+
+		table.scale.set(table.scale.x * zoom, table.scale.y * zoom, table.scale.z * zoom);
+
+	}
+
 	this.zoomOut = function() {
 
 		var zoomOut = 1.01;
-		var targetScale = this.table.scale.x / 1.5;
+		var targetScale = this.table.scale.x / 1.1;
 		var table = this.table;
+		console.log(table.zooming);
 
 		function zoom() {
 
 			table.scale.set(table.scale.x / zoomOut, table.scale.y / zoomOut, table.scale.z / zoomOut);
-			zoomOut = zoomOut * 1.1;
+			zoomOut = zoomOut * 1.01;
 
 			if (table.scale.x > targetScale) {
 
 				requestAnimationFrame(zoom);
 
+			} else {
+				console.log(table);
+				//table.zooming = false;
+
 			}
 
 		}
 
-		requestAnimationFrame(zoom);
+		//if (!this.zooming) {
+
+			//this.zooming = true;
+			requestAnimationFrame(zoom);
+
+		//}
 
 		//this.table.scale.set(this.table.scale.x / 1.1, this.table.scale.y / 1.1, this.table.scale.z / 1.1);
 

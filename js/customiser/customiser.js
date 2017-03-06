@@ -4,8 +4,6 @@
 	var view_angle = 45;
 	var near = 0.1;
 	var far = 1000;
-	var focus = new THREE.Vector3(-10,300,0);
-	var position = new THREE.Vector3(0,0,-200);
 	var changed = true;
 	var composer;
 	var bgComposer;
@@ -164,72 +162,8 @@
 
 	}	
 
-	var setupLightingHtml = function() {
+	var log_error = function(title, message) {
 
-		Lighting.forEach(function(light, index) {
-
-                        var html = "<div data-light='" + index + "'>" + light.type;
-
-                        if (light.type == "PointLight" || light.type == "SpotLight") {
-
-                                html += "<span><input type='number' name='intensity' step='0.1' value='" + light.intensity + "'/></span>";
-                                html += "<span><input type='number' name='xposition' value='" + light.position.x + "'/></span>";
-                                html += "<span><input type='number' name='yposition' value='" + light.position.y + "'/></span>";
-                                html += "<span><input type='number' name='zposition' value='" + light.position.z + "'/></span>";
-
-                        } else if (light.type == "AmbientLight") {
-
-                                console.log(light);
-                                console.log(light.intensity);
-                                html += "<span><input type='color' name='color' value='#" + light.color.getHexString() + "'/></span>";
-
-                        }
-
-                        html += "</div>";
-
-                        jQuery('#customiser-lighting').append(html);
-                        jQuery('#customiser-lighting input[name=xposition]').on('change', function(e) {
-
-                                var light = jQuery(this).closest('div').data('light');
-                                Lighting.changeXPosition(light, jQuery(this).val());
-
-
-                        });
-
-                        jQuery('#customiser-lighting input[name=yposition]').on('change', function(e) {
-
-                                var light = jQuery(this).closest('div').data('light');
-                                Lighting.changeYPosition(light, jQuery(this).val());
-
-                        });
-
-                        jQuery('#customiser-lighting input[name=zposition]').on('change', function(e) {
-
-                                var light = jQuery(this).closest('div').data('light');
-                                Lighting.changeZPosition(light, jQuery(this).val());
-
-                        });
-
-                        jQuery('#customiser-lighting input[name=intensity]').on('change', function(e) {
-
-                                var light = jQuery(this).closest('div').data('light');
-                                Lighting.changeIntensity(light, jQuery(this).val());
-
-                        });
-
-			jQuery('#customiser-lighting input[name=color]').on('change', function(e) {
-
-				var light = jQuery(this).closest('div').data('light');
-				Lighting.changeColour(light, jQuery(this).val());
-
-			});
-
-                });
-
-	}
-
-	var initLighting = function() {
-		
 		jQuery.ajax({
 
 			url: '/wp-admin/admin-ajax.php',
@@ -237,121 +171,21 @@
 			dataType: 'json',
 			data: {
 
-				'action': 'get_lighting',
+				'action': 'log_error',
+				'error_title': title,
+				'error_error': message,
 
 			},
 			success: function(data) {
 
-				console.log("Lighting Data:");
-				console.log(data);
-
-				data.PointLights.forEach(function(light) {
-
-					var index = Lighting.addPointLight(0xFFFFFF, light.intensity);
-					Lighting.positionLight(index, light.x_position, light.y_position, light.z_position);
-					
-				});
-
-				Lighting.addAmbientLight(data.AmbientColour);
-
-				Lighting.addLightsToScene(scene);
-				//setupLightingHtml();
-
-				
-
-			},
-			error: function(err) {
-
-				console.log("Error Lighting Values");
-				console.log(err);
+				console.log(title + ' successfully logged.');
 
 			}
-
-		});
-
-		Lighting.forEach(function(light, index) {
-
-			var html = "<div data-light='" + index + "'>" + light.type;
-
-			if (light.type == "PointLight" || light.type == "SpotLight") {
-
-				html += "<span><input type='number' name='intensity' step='0.1' value='" + light.intensity + "'/></span>";
-				html += "<span><input type='number' name='xposition' value='" + light.position.x + "'/></span>";
-				html += "<span><input type='number' name='yposition' value='" + light.position.y + "'/></span>";
-				html += "<span><input type='number' name='zposition' value='" + light.position.z + "'/></span>";
-
-			} else if (light.type == "AmbientLight") {
-
-				console.log(light);
-				console.log(light.intensity);
-				html += "<span><input type='color' name='intensity' step='0.1' value='" + light.color.getHexString() + "'/></span>";
-
-			}
-
-			html += "</div>";
-
-			jQuery('#customiser-lighting').append(html);
-			jQuery('#customiser-lighting input[name=xposition]').on('change', function(e) {
-
-				var light = jQuery(this).closest('div').data('light');
-				Lighting.changeXPosition(light, jQuery(this).val());
-
-
-			});
-
-			jQuery('#customiser-lighting input[name=yposition]').on('change', function(e) {
-
-				var light = jQuery(this).closest('div').data('light');
-				Lighting.changeYPosition(light, jQuery(this).val());
-
-			});
-
-			jQuery('#customiser-lighting input[name=zposition]').on('change', function(e) {
-
-				var light = jQuery(this).closest('div').data('light');
-				Lighting.changeZPosition(light, jQuery(this).val());
-
-			});
-
-			jQuery('#customiser-lighting input[name=intensity]').on('change', function(e) {
-
-				var light = jQuery(this).closest('div').data('light');
-				Lighting.changeIntensity(light, jQuery(this).val());
-
-			});
 
 		});
 
 	}
-
-	var addFloor = function() {
-
-		var geometry = new THREE.BoxGeometry(1,1,1);
-		var material = new THREE.MeshPhongMaterial({
-			ambient: 0xFFFFFF,
-			color: 0xFF,
-			shininess: 20,
-			specular: 0x888888,
-		});
-
-		var cube = new THREE.Mesh(geometry, material); 
-
-		cube.traverse(function(object) {
-
-			object.recieveShadow = true;
-			object.castShadow = false;
-
-		});
 	
-		cube.position.y = 0.2;
-		cube.position.x = 0.2;
-		cube.position.z = 0;
-		floor = cube;
-
-		cube.receiveShadow = true;
-
-	}
-
 	var animate = function() {
 
 		requestAnimationFrame(animate);
@@ -371,8 +205,13 @@
 			if (jQuery('.customiser .spinner-loader').length > 0) {
 
 				jQuery('.spinner-loader, .spinner-loader-text').remove();
+				console.log("Overlay");
+				console.log(jQuery("#customiser .overlay"));
+				//jQuery('#customiser .overlay').removeClass('hidden');
 
 			}
+
+
 		
 			for(var i = 0; i < objects.length; i++) {
 
@@ -391,10 +230,16 @@
 
 	var initRenderer = function() {
 		
+				try {
+				
 				var params = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: false };
 				renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true, antialias: false, alpha: true, precision: "highp"});
 				
 				if (renderer.getContext()) {
+
+					log_error("Init Renderer", "Renderer Successfully Initialized");
+
+					
 
 					var width = getWidth();
 					var height = getHeight();
@@ -424,26 +269,33 @@
 					renderPass.renderToScreen = true;
 					composer.addPass(renderPass);
 	
-					var dotScreenEffect = new THREE.ShaderPass( THREE.DotScreenShader );
-                        		dotScreenEffect.uniforms[ 'scale' ].value = 4;
-                        		
 					fxaaShader = new THREE.ShaderPass(THREE.FXAAShader);
 					fxaaShader.uniforms['resolution'].value = new THREE.Vector2(1/width, 1/height);					
-					
-
-					dotScreenEffect.renderToScreen = true;
 					fxaaShader.renderToScreen = true;
+
 					composer.addPass(fxaaShader);					
 
 					var dlink = "<a id='customiserImage' download>Picture</a>";
 					
-					jQuery('div.customiser').append(renderer.domElement);
-					jQuery('div.customiser .loader').removeClass('hidden');
+					//jQuery('div.customiser').append(renderer.domElement);
+
+					//Listen for loss of context.
+					jQuery('div.customiser .overlay').removeClass('hidden');
 
 				} else {
 
 					jQuery('div.main-image').removeClass('hidden');
 					jQuery('div#customiser').addClass('hidden');
+
+				}
+
+				} catch (exception) {
+
+					console.log("Error with WebGL");
+					jQuery('div.main-image').removeClass('hidden');
+					jQuery('div#customiser').addClass('hidden');
+					console.log(exception);
+					//throw exception;
 
 				}
 
@@ -464,66 +316,32 @@
 			},
 			success: function(data) {
 
-				console.log("Camera Success");
-				console.log(data);
+				jQuery.ajax({
+					url: '/wp-admin/admin-ajax.php',
+					type: 'GET',
+					dataType: 'json',
+					data: {
+						'action': 'camera_offset',
+						'product': getProductID(),
+					},
+					success: function(offset) {
 
-				camera_pos = data[0];
+						camera_pos = data[0];
 
-				camera.position.set(camera_pos.x_position, camera_pos.y_position, camera_pos.z_position);
+						camera.position.set(camera_pos.x_position, camera_pos.y_position, camera_pos.z_position);
 
-				focus.x = 0;
-				focus.y = 0;
-				focus.z = 0;
+						focus.x = 0;
+						focus.y = offset;
+						focus.z = 0;
 
-				camera.lookAt(focus);
+						camera.lookAt(focus);
 
-				var html = "<div id='lighting'>";
-
-				html += "<input type='number' name='x_position' step='0.1' value='" + camera_pos.x_position + "' />";
-				html += "<input type='number' name='y_position' step='0.1' value='" + camera_pos.y_position + "' />";
-				html += "<input type='number' name='z_position' step='0.1' value='" + camera_pos.z_position + "' />";
-
-				html += "</div>";
-
-				jQuery('#customiser-lighting').append(html);
-
-				jQuery('#customiser-lighting input[name=x_position]').on('change', function(e) {
-
-					camera.position.x = jQuery(this).val();
-
-				});
-
-				jQuery('#customiser-lighting input[name=y_position]').on('change', function(e) {
-
-					camera.position.y = jQuery(this).val();
-
-				});
-
-				jQuery('#customiser-lighting input[name=z_position]').on('change', function(e) {
-
-					camera.position.z = jQuery(this).val();
-
+					}
 				});
 
 			}
 
 		});
-
-	}
-
-	var setCameraLookAt = function(table) {
-
-		var boundingBox = new THREE.Box3().setFromObject(table);
-		var floorBox = new THREE.Box3().setFromObject(floor);
-	
-		focus.y = 10/**(boundingBox.max.y / 2) + floorBox.max.y;**/
-		//focus.z = (boundingBox.max.z - boundingBox.min.z)/2
-
-		focus.y = 0;
-		focus.x = 0;
-		//focus.z = 0;
-
-		camera.lookAt(focus);
 
 	}
 
@@ -540,36 +358,12 @@
 
 	}
 
-	/*var getObjectFile = function() {
+	var getObjectFile = function() {
 
 		var objfile = jQuery("input[name=object_file]").val();
 		return objfile;
 
-	}*/
-
-	var getObjectFile = function() {
-
-		jQuery.ajax({
-
-			url: '/wp-admin/admin-ajax.php',
-			type: 'GET',
-			dataType: 'json',
-			data: {
-
-				'action': 'get_object',
-
-			},
-			success: function(success) {
-
-				console.log("Succesfully got object file");
-				console.log(success);
-
-			}
-
-		})
-
 	}
-
 
 	var getMaterialFile = function() {
 
@@ -593,10 +387,13 @@
 
 	var init = function(product) {
 
+		log_error("Customiser Request", navigator.userAgent);
+
 		try {
 
 			if (!Modernizr.webgl) {
 
+				log_error("WebGL Not Supported", "No WebGl Support in browser");
 				console.log("No WebGL Support");
 				throw "WebGL Not Supported";
 
@@ -613,19 +410,40 @@
 			var xtrans = jQuery("input[name=translation_x]").val();
 			var ytrans = jQuery("input[name=translation_y]").val();			
 
-			initCamera();
-			initScene();
-			initRenderer();
-			initLighting();
+			jQuery.ajax({
 
-			addFloor();
-			
-			setTable(product, scale, rotation, xtrans, ytrans);
+				url: '/wp-admin/admin-ajax.php',
+				type: 'GET',
+				dataType: 'json',
+				data: {
 
-			//animate();
+					'action': 'customiser_get_table_request',
+					'product': product
+
+				},
+				success: function(data) {
+
+					initCamera();
+					initScene();
+					initRenderer();
+					Lighting.initLighting(scene);
+					loadTableObject(data.Object_File, data.Material_File, product, scale, rotation, xtrans, ytrans);
+
+				},
+				error: function(err) {
+
+					log_error("Failed to Load Table", err);
+					jQuery('.main-image').removeClass('hidden');
+					jQuery('div#customiser').remove();
+
+				}
+
+			});
+
 		
 		} catch (err) {
-		
+	
+			log_error("Customiser Failed", err);
 			console.log("An Error occurred");
 			console.log(err.stack);
 			jQuery('.main-image').removeClass('hidden');
@@ -665,10 +483,15 @@
 
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
-				console.log(url);
+				log_error("AJAX Success", xmlhttp.response);
 				var response = JSON.parse(xmlhttp.responseText)
 				method(response);
 			
+
+			} else if (xmlhttp.readyState == 4) {
+
+				log_error("AJAX Error", "Status: " + xmlhttp.status);
+				log_error("AJAX Error", "Response: " + xmlhttp.response);
 
 			}
 
@@ -730,6 +553,9 @@
                 }
 	
 	jQuery(document).ready(function() {
+
+		//Pinch to Zoom Functionality.
+		var prevDiff = -1;
 
 		jQuery("button[name=featured_image]").on('click', function(e) {
 
@@ -803,7 +629,7 @@
 		}
 
 
-		jQuery("#customiser .controls div.rotate-left").on('mousedown', function(e) {
+		jQuery("#customiser .controls div.rotate-left").on('pointerdown', function(e) {
 
 			rotatingLeft = true;
 			rotateLeft();
@@ -811,17 +637,58 @@
 
 		var mousedown = false;
 		var mouseY = 0;
+		var pinching = false;
 
 		jQuery('#customiser').on('touchstart', function(e) {
 
+			jQuery("#customiser").on('touchmove', function(e) {
+
+				if (e.targetTouches.length == 2) {
+
+					e.preventDefault();
+
+					var curDiff = Math.abs(e.targetTouches[0].clientX - e.targetTouches[1].clientX);
+					console.log(e.targetTouches);
+					console.log(curDiff - prevDiff);
+
+					if (Math.abs(curDiff - prevDiff) > 5) {
+
+						if (prevDiff > 0) {
+
+							if (curDiff > prevDiff) {
+
+								console.log("Stretching");
+								table.zoomBy(1.1);
+
+							}
+
+							if (curDiff < prevDiff) {
+
+								console.log("Pinching");
+								table.zoomBy(0.9);
+
+							}
+
+						}
+
+						prevDiff = curDiff;
+
+					}
+
+				}
+
+			});
+
 			if (e.touches.length === 1) {
 
-				e.preventDefault();
+				//e.preventDefault();
 				mouseX = e.touches[0].pageX;
 
 				//alert(mouseX);
 
 				jQuery("#customiser").on('touchmove', function(e) {
+
+					//e.preventDefault();
 
 					var dx = e.touches[0].pageX - mouseX;
 					mouseX = e.touches[0].pageX;
@@ -832,6 +699,13 @@
 				});
 
 			}
+
+		});
+
+		jQuery("#customiser").on('pointerup', function(e) {
+
+			prevDiff = -1;
+			console.log("touch up");
 
 		});
 
@@ -875,20 +749,20 @@
 
 		});
 
-		jQuery("#customiser .controls div.rotate-left").on('mouseup mouseleave', function(e) {
+		jQuery("#customiser .controls div.rotate-left").on('pointerup pointerleave', function(e) {
 
 			rotatingLeft = false;
 
 		});
 
-		jQuery("#customiser .controls div.rotate-right").on('mousedown', function(e) {
+		jQuery("#customiser .controls div.rotate-right").on('pointerdown', function(e) {
 
 			rotatingRight = true;
 			rotateRight();
 
 		});
 
-		jQuery("#customiser .controls div.rotate-right").on('mouseup mouseleave', function(e) {
+		jQuery("#customiser .controls div.rotate-right").on('pointerup pointerleave', function(e) {
 
 			rotatingRight = false;
 
@@ -920,9 +794,40 @@
 
 		} else {
 
-			jQuery('#customiser .loader').remove();
-			jQuery('#customiser .controls').removeClass("hidden");
 			animate();
+			jQuery('#customiser .loader').remove();
+			jQuery('#customiser .main-image').addClass('hidden');
+
+			//var theCanvas = renderer.domElement
+			jQuery('div.customiser').append(renderer.domElement);
+
+			var canvas = document.getElementById('customiserCanvas');
+			//jQuery(canvas).addClass('hidden');
+			//canvas.addClass('hidden');
+			canvas.addEventListener("webglcontextlost", function(e) {
+
+				console.log("Context was lost");
+				e.preventDefault();
+				log_error("Lost Context", e);
+
+				convas.addEventListener("webglcontextrestored", function(e) {
+
+					init(125);
+
+				}, false);
+
+                        }, false);
+
+                        //canvas.addEventListener("webglcontextrestored", init(125), false);
+
+			jQuery('#customiser').removeClass('hidden');
+			jQuery('#customiser .overlay').removeClass('hidden');
+			setTimeout(function() {
+				jQuery('#customiser .overlay').addClass('hidden');
+			}, 2000);
+			jQuery('#customiser .controls').removeClass("hidden");
+			jQuery('#customiser .top-controls').removeClass("hidden");
+			//animate();
 
 		}
 
@@ -1028,9 +933,7 @@
 		var url = "/wp-admin/admin-ajax.php?action=customiser_get_table_request&product=" + tableID; 
 		
 		jsonHttpRequest(url, function(json) {
-	
-			console.log("JSON for Model File");
-			console.log(json);
+		
 			loadTableObject(json.Object_File, json.Material_File, tableID, scale, rot, x, y);
 			
 		});
