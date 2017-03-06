@@ -66,30 +66,81 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="row customiser-wrapper">
 	
 	<div class="small-12 medium-6 product-left">
+
+		<button name="featured_image">Use Image as Featured</button>
 		
-		<div class="customiser" id="customiser"></div>
+		<div class="customiser" id="customiser">
+
+			<div class="loader"></div>
+			<div class="overlay hidden">
+				<img src="<?php echo get_template_directory_uri() . "/imgs/360_Transparent.png" ?>"/>
+			</div>
+			
+			<div class="top-controls left hidden">
+
+				<button name="random">Inspire Me</button>
+
+			</div>
+
+			<div class="top-controls right hidden">
+
+				<div class="zoom-in"><i class="fa fa-search-plus" aria-hidden="true"></i></div>
+				<div class="zoom-out"><i class="fa fa-search-minus" aria-hidden="true"></i></div>
+
+			</div>
+		
+			<div class="controls hidden">
+
+				<div class="rotate-left"><i class="fa fa-rotate-left" aria-hidden="true"></i></div>
+				<div class="rotate-right"><i class="fa fa-rotate-right" aria-hidden="true"></i></div>
+
+			</div>
+
+			<div class="notification">
+
+				<p>Drag to Rotate</p>
+
+			</div>
+
+			<div class="main-image">
+
+				<?php echo get_the_post_thumbnail(get_the_ID(), 'full'); ?>
+
+			</div>
+
+		</div>
+
+		<div class="lighting" id="customiser-lighting">
+
+			Lighting
+
+		</div>
+
 		<div class="product-thumb-wrapper">
 				<?php do_action( 'woocommerce_product_thumbnails' ); ?>
 			</div>
-		<div class="main-image hidden">
+		<div class="main-image ">
 
 			<?php echo get_the_post_thumbnail(get_the_ID(), 'full'); ?>
 
 		</div>
 
+		<?php $model = get_field('model_post'); ?>
+		<?php var_dump($model); ?>
+
 
 		<input type="hidden" value="<?php echo get_the_ID(); ?>" name="product" />
-		<input type="hidden" value="<?php the_field('model'); ?>" name="object_file" />
-		<input type="hidden" value="<?php the_field('materials'); ?>" name="materials_file" />
-		<input type="hidden" value="<?php the_field('scale'); ?>" name="scale" />
-		<input type="hidden" value="<?php the_field('rotation'); ?>" name="rotation" />
-		<input type="hidden" value="<?php the_field('translation_y'); ?>" name="translation_y" />
-		<input type="hidden" value="<?php the_field('translation_x'); ?>" name="translation_x" />
+		<input type="hidden" value="<?php the_field('model', $model); ?>" name="object_file" />
+		<input type="hidden" value="<?php the_field('materials', $model); ?>" name="materials_file" />
+		<input type="hidden" value="<?php the_field('scale', $model); ?>" name="scale" />
+		<input type="hidden" value="<?php the_field('rotation', $model); ?>" name="rotation" />
+		<input type="hidden" value="<?php the_field('translation_y', $model); ?>" name="translation_y" />
+		<input type="hidden" value="<?php the_field('translation_x', $model); ?>" name="translation_x" />
 
 		<script>
 
 			jQuery(document).ready(function(e) {
-				
+
 				//setTimeout(function() {
 				init(125);
 				//}, 1000);
@@ -98,8 +149,51 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</script>
 	</div>
 
-	<div class="small-12 medium-6 product-right">
-		<h3 class="prod-customiser-title fancy">Customise It!</h3>
+	<div class="small-12 medium-6 row product-right">
+
+		<div class="row">
+			<div class="small-6">
+				<h3 class="prod-customiser-title fancy">Customise It!</h3>
+			</div>
+
+			<div class="small-6">
+				<script>
+
+					jQuery(document).ready(function(e) {
+
+						jQuery("button[name=random]").on('click', function(e) {
+
+							var sides = jQuery(".ac-row.texture");
+							
+							sides.each(function(index) {
+
+								var textures = jQuery(this).find('.swatch-label');
+								var random = Math.floor(Math.random() * textures.length);
+								var input = jQuery(textures[random]).find('input');
+								var sides = input.closest('.ac-row').data('side');
+								var id = input.data('texture');
+
+								selectTexture(input);
+
+								input.prop('checked', true);
+
+								console.log(sides);
+
+								changeTexture(sides, id);
+
+								//jQuery(textures[random]).find('input').click();
+								//console.log(random);
+
+							});
+							//console.log(sides);
+
+						});
+
+					});
+
+				</script>
+			</div>
+		</div>
 		<section class="ac-container">
 
 			<?php
@@ -125,30 +219,88 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php
 
-				$model = get_field('model_post');
-				$textures = get_field('textures', $model);
+				$textures = get_transient('textures-' . get_the_ID());
 
-				foreach ($textures as $i => $texture_row) {
-					
-					$side = $texture_row['side'];
-					$texture_row = $texture_row['textures'];
+				if ($textures === false) {
 
-					var_dump($side);
-					var_dump($texture_row); ?>
-
-						<div class="ac-row texture" data-sides="<?php echo $side; ?>">
-							<input class="prod-options-ac-ckeck" id="ac-<?php echo $i; ?>" name="accordion-1" type="checkbox">
-
-						</div>
-
-
-					<?php
+					$textures = get_field('textures');
+					set_transient('textures-' . get_the_ID(), $textures, WEEK_IN_SECONDS);
 
 				}
 
 			?>
+			<?php $defaults = get_field('default_textures'); ?>
+			<?php if ($textures): ?>
+			<?php foreach($textures as $i => $texture_row): ?>
+				<?php $side = $texture_row['side']; ?>
+				<?php $the_default; ?>
 
-			<?php get_texture_accordions(get_the_ID()); ?>
+				<?php
+					foreach($defaults as $default) {
+
+						if ($side == $default['side']) {
+
+							$the_default = $default;
+
+						}
+
+					}
+				?>
+				<?php $texture_row = $texture_row['texture_values']; ?>
+				<?php $category = $texture_row['category']; ?>
+				<?php $tags = $texture_row[$category]; ?>
+				<?php $term = get_term($category); ?>
+				<div class="ac-row texture" data-side="<?php echo $side; ?>">
+					<input class="prod-options-ac-ckeck" id="ac-<?php echo $i; ?>" name="accordion-1" type="checkbox">
+
+					<?php
+
+						$default_img = get_field('thumbnail', $the_default['texture']->ID);
+						if (is_numeric($default_img)) {
+							$default_img = wp_get_attachment_url($img);
+						}
+
+					?>
+
+					<label for="ac-<?php echo $i; ?>"><?php echo $term->name; ?><span class="prod-set-option"><img src="<?php echo $default_img; ?>" /><?php echo $the_default['texture']->post_title; ?>&nbsp;</span> <i class="fa fa-chevron-down" aria-hidden="true"></i></label>
+					<article class="ac-small">
+						<?php if ($tags): foreach($tags as $tag => $tag_value): ?>
+							<label class="swatch-label">
+								
+								<input type="radio" 
+								
+								<?php 
+
+									if (isset($_textures) && $_textures) {
+
+										echo ($_textures[$term->term_id] == $tag ? 'checked="checked"' : '');
+
+									} else {
+								
+										echo ($the_default['texture']->ID == $tag ? 'checked="checked"' : '');  
+
+									}
+
+								?>
+								
+								data-category="<?php echo $category;  ?>" data-texture="<?php echo $tag; ?>" name="<?php echo $term->slug; ?>" value="<?php echo get_the_title($tag); ?>" />
+
+								<span class="swatch-icon">
+									<?php $img = get_field('thumbnail', $tag);
+									if (is_numeric($img)) {
+										$img = wp_get_attachment_url($img);
+									} ?>
+
+									<img src="<?php echo $img; ?>" alt="<?php echo get_the_title($tag); ?>" />
+								</span>
+							</label>
+						<?php endforeach; endif; ?>
+					</article>
+				</div>
+
+			<?php endforeach; ?>
+			<?php endif; ?>
+
 			<script>
 
 				$('.ac-small input[type=radio]').on('click', function(e) {
@@ -189,7 +341,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php $option_id = icl_object_id($option['option'], 'post', true); ?>
 				<?php $side = $option['side']; ?>
 				<?php $default = $option['default']; ?>
-				<?php $default_img = get_field(strtolower($default), $option['option']); ?>
+				<?php $default_img = get_field(strtolower($default), $option_id); ?>
 				<?php $option = $option_id; ?>
 				<div class="ac-row option" data-side="<?php echo $side; ?>">
 					<input class="prod-options-ac-ckeck" id="ac-<?php echo $option; ?>" name="accordion-1" type="checkbox">
@@ -360,7 +512,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			global $product;
 			
 			$attachment_ids = get_transient('product-gallery-' . get_the_ID());
-			$attachment_ids = false;
+
 			if ($attachment_ids === false) {
 
 				$attachment_ids = $product->get_gallery_attachment_ids();
