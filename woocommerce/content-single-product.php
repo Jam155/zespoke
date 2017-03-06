@@ -102,32 +102,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			</div>
 
-			<div class="main-image">
-
-				<?php echo get_the_post_thumbnail(get_the_ID(), 'full'); ?>
-
-			</div>
-
-		</div>
-
-		<div class="lighting" id="customiser-lighting">
-
-			Lighting
-
 		</div>
 
 		<div class="product-thumb-wrapper">
 				<?php do_action( 'woocommerce_product_thumbnails' ); ?>
 			</div>
-		<div class="main-image ">
+		<div class="main-image hidden">
 
 			<?php echo get_the_post_thumbnail(get_the_ID(), 'full'); ?>
 
 		</div>
-
-		<?php $model = get_field('model_post'); ?>
-		<?php var_dump($model); ?>
-
 
 		<input type="hidden" value="<?php echo get_the_ID(); ?>" name="product" />
 		<input type="hidden" value="<?php the_field('model', $model); ?>" name="object_file" />
