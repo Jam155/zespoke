@@ -379,12 +379,17 @@
 
 			$model_id = get_field('model_post', $product);
 
-			//echo json_encode($model_id);
-			//wp_die();
-			
-			$result['Object_File'] = get_field('model', $model_id);
+			if (is_null($model_id)) {
 
-			//$result['Object_File'] = get_field('model', $product);
+				$result['Object_File'] = get_field('model', $product);
+				$result['Material_File'] = get_field('materials', $product);
+
+			} else {
+			
+				$result['Object_File'] = get_field('model', $model_id);
+				$result['Material_File'] = get_field('materials', $model_id);
+
+			}
 
 			if (is_numeric($result['Object_File'])) {
 
@@ -392,18 +397,11 @@
 
 			}
 
-			$result['Material_File'] = get_field('materials', $model_id);
-
-			//$result['Material_File'] = get_field('materials', $product);
-
 			if (is_numeric($result['Material_File'])) {
 
 				$result['Material_File'] = wp_get_attachment_url($result['Material_File']);
 
 			}
-
-			//$result['Object_File'] = wp_get_attachment_url(get_field('model', $product));
-			//$result['Material_File'] = wp_get_attachment_url(get_field('materials', $product));
 
 		}
 
