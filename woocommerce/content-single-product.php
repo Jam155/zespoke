@@ -67,40 +67,44 @@ if ( ! defined( 'ABSPATH' ) ) {
 	
 	<div class="small-12 medium-6 product-left">
 
-		<button name="featured_image">Use Image as Featured</button>
+		<!--button name="featured_image">Use Image as Featured</button-->
 		
 		<div class="customiser" id="customiser">
-
-			<div class="loader"></div>
-			<div class="overlay hidden">
-				<img src="<?php echo get_template_directory_uri() . "/imgs/360_Transparent.png" ?>"/>
-			</div>
 			
-			<div class="top-controls left hidden">
+			<?php if (!is_null(get_field('model_post'))): ?>
 
-				<button name="random">Inspire Me</button>
+				<div class="loader"></div>
+				<div class="overlay hidden">
+					<img src="<?php echo get_template_directory_uri() . "/imgs/360_Transparent.png" ?>"/>
+				</div>
+				
+				<div class="top-controls left hidden">
 
-			</div>
+					<button name="random">Inspire Me</button>
 
-			<div class="top-controls right hidden">
+				</div>
 
-				<div class="zoom-in"><i class="fa fa-search-plus" aria-hidden="true"></i></div>
-				<div class="zoom-out"><i class="fa fa-search-minus" aria-hidden="true"></i></div>
+				<div class="top-controls right hidden">
 
-			</div>
-		
-			<div class="controls hidden">
+					<div class="zoom-in"><i class="fa fa-search-plus" aria-hidden="true"></i></div>
+					<div class="zoom-out"><i class="fa fa-search-minus" aria-hidden="true"></i></div>
 
-				<div class="rotate-left"><i class="fa fa-rotate-left" aria-hidden="true"></i></div>
-				<div class="rotate-right"><i class="fa fa-rotate-right" aria-hidden="true"></i></div>
+				</div>
+			
+				<div class="controls hidden">
 
-			</div>
+					<div class="rotate-left"><i class="fa fa-rotate-left" aria-hidden="true"></i></div>
+					<div class="rotate-right"><i class="fa fa-rotate-right" aria-hidden="true"></i></div>
 
-			<div class="notification">
+				</div>
 
-				<p>Drag to Rotate</p>
+				<div class="notification">
 
-			</div>
+					<p>Drag to Rotate</p>
+
+				</div>
+
+			<?php endif; ?>
 
 		</div>
 
