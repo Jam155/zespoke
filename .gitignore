@@ -7,3 +7,5 @@ npm-debug.log
 .bowerrc
 .save
 *.BACKUP
+old_customiser/*
+js/old_customiser
