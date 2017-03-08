@@ -101,9 +101,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		</div>
 
-		<div class="product-thumb-wrapper">
-				<?php do_action( 'woocommerce_product_thumbnails' ); ?>
-			</div>
 		<div class="main-image hidden">
 
 			<?php echo get_the_post_thumbnail(get_the_ID(), 'full'); ?>
