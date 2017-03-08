@@ -90,13 +90,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="zoom-out"><i class="fa fa-search-minus" aria-hidden="true"></i></div>
 
 				</div>
-			
-				<div class="controls hidden">
-
-					<div class="rotate-left"><i class="fa fa-rotate-left" aria-hidden="true"></i></div>
-					<div class="rotate-right"><i class="fa fa-rotate-right" aria-hidden="true"></i></div>
-
-				</div>
 
 				<div class="notification">
 
