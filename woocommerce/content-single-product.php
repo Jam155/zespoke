@@ -71,7 +71,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		
 		<div class="customiser" id="customiser">
 			
-			<?php if (!is_null(get_field('model_post'))): ?>
+			<?php if (!is_null(get_field('model_post')) && !get_field('model_post')): ?>
 
 				<div class="loader"></div>
 				<div class="overlay hidden">

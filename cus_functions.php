@@ -379,7 +379,7 @@
 
 			$model_id = get_field('model_post', $product);
 
-			if (is_null($model_id)) {
+			if (is_null($model_id) || !$model_id) {
 
 				$result['Object_File'] = get_field('model', $product);
 				$result['Material_File'] = get_field('materials', $product);

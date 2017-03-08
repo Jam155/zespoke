@@ -102,7 +102,7 @@ function add_scripts() {
 
 		$cusdir = get_template_directory_uri() . '/js/';
 
-		if (!is_null(get_field('model_post', $product_id))) {
+		if (!is_null(get_field('model_post', $product_id)) && get_field('model_post', $product_id)) {
 		
 			$cusdir .= 'customiser';	
 
