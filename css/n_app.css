@@ -4158,58 +4158,6 @@ div.trusted {
 
 }
 
-#customiser .controls {
-
-	position: absolute;
-	bottom: 0;
-	margin-bottom: 1em;
-	width: 100%;
-	height: 24px;
-
-}
-
-#customiser .controls div {
-
-	display: inline-block;
-
-}
-
-#customiser .controls div.rotate-left {
-
-	position: absolute;
-	left: 0;
-	padding-left: 1em;
-
-}
-
-#customiser .controls div.rotate-right {
-
-	position: absolute;
-	right: 0;
-	padding-right: 1em;
-	transition: transform 1s;
-
-}
-
-#customiser .controls div i {
-
-	transition: transform 1s;
-	cursor: pointer;
-
-}
-
-#customiser .controls div.rotate-right i:hover {
-
-	transform: rotate(360deg);
-
-}
-
-#customiser .controls div.rotate-left i:hover {
-
-	transform: rotate(-360deg);
-
-}
-
 .customiser-loader {
 
 	position: absolute;
