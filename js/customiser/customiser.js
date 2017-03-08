@@ -629,12 +629,6 @@
 		}
 
 
-		jQuery("#customiser .controls div.rotate-left").on('pointerdown', function(e) {
-
-			rotatingLeft = true;
-			rotateLeft();
-		});
-
 		var mousedown = false;
 		var mouseY = 0;
 		var pinching = false;
@@ -748,28 +742,6 @@
 			table.zoomOut();
 
 		});
-
-		jQuery("#customiser .controls div.rotate-left").on('pointerup pointerleave', function(e) {
-
-			rotatingLeft = false;
-
-		});
-
-		jQuery("#customiser .controls div.rotate-right").on('pointerdown', function(e) {
-
-			rotatingRight = true;
-			rotateRight();
-
-		});
-
-		jQuery("#customiser .controls div.rotate-right").on('pointerup pointerleave', function(e) {
-
-			rotatingRight = false;
-
-		});
-
-
-		
 
 		jQuery(".ac-row.texture article input[type=radio]").on('click', function(e) {
 
