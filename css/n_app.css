@@ -2189,6 +2189,7 @@ h1.product-title{font-weight:500;margin-top:0;font-size:1.5em;margin:0px;}
 .product-left{width:100%;position:relative;}
 .product-left canvas{width:100%;height:100%;}
 .product-right{padding-left:20px;}
+@media all and (-ms-high-contrast: none) {.product-right{padding-left: 0;}}
 .product-right .ze-quantity:before{content:'Quantity';margin-right:5px;color:#757575;text-transform:uppercase;font-weight:600;font-family:'Poppins';font-size:14px;}
 .description-image{border-top:1px solid #dfdfdf !important;border-bottom:1px solid #dfdfdf !important;padding-bottom:1.5em;margin-top:1em !important;padding-top:2em !important;}
 .description-image .medium-7{padding-right:2em !important;}
