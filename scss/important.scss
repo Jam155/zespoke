@@ -698,6 +698,12 @@ ul {
 
 	}
 
+	.large-5 {
+
+		@include flex(41.66667%);
+
+	}
+
 	.large-4 {
 
 		@include flex(33.33333%);
