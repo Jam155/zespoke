@@ -140,7 +140,7 @@ Lighting.prototype.initLighting = function(scene) {
 			'action': 'get_lighting',
 
 		},
-		success(data) {
+		success: function(data) {
 	
 			data.PointLights.forEach(function(light) {
 
