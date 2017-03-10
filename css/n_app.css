@@ -3717,17 +3717,6 @@ body .brand-carousel .owl-controls .owl-nav .owl-next {
 @media screen and (max-width: 500px) {
 	body .sections .section .content.top_center { top: 0%; bottom: 20%; left: 20%; right: 20%; }
 	body .sections .section .content.top_right { top: 0%; bottom: 20%; left: 20%; right: 20%; }
-	body .sections .section .content.middle_left { top: 0%; bottom: 20%; left: 20%; right: 20%; }
-	body .sections .section .content.middle_right { top: 0%; bottom: 20%; left: 20%; right: 20%; }
-	body .sections .section .content {
-		margin: 0 auto;
-		left: 0 !important;
-		right: 0 !important;
-		max-width: 100%;
-		padding: 10px;
-		position: relative;
-	    padding: 10px 10px 20px 10px;
-	}
 	body .sections div h2 {
 		margin-bottom: 0px;
 	}
