@@ -158,6 +158,11 @@ function add_styles() {
 	wp_enqueue_style('owlcss', get_template_directory_uri() . '/owl/assets/owl.carousel.css');
 	wp_enqueue_style('languageswitcher', get_template_directory_uri() . '/css/language-switcher.css');
 
+	if (is_singular('product')) {
+
+		wp_enqueue_style('productcss' , get_template_directory_uri() . '/css/product.css');
+
+	}
 }
 
 add_action('init', 'create_zespoke_content');
