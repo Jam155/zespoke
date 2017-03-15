@@ -2189,7 +2189,7 @@ h1.product-title{font-weight:500;margin-top:0;font-size:1.5em;margin:0px;}
 .product-left{width:100%;position:relative;}
 .product-left canvas{width:100%;height:100%;}
 .product-right{padding-left:20px;}
-@media all and (-ms-high-contrast: none) {.product-right{padding-left: 0;}}
+@media all and (-ms-high-contrast: none) { .product-right{padding-left: 0;}}
 .product-right .ze-quantity:before{content:'Quantity';margin-right:5px;color:#757575;text-transform:uppercase;font-weight:600;font-family:'Poppins';font-size:14px;}
 .description-image{border-top:1px solid #dfdfdf !important;border-bottom:1px solid #dfdfdf !important;padding-bottom:1.5em;margin-top:1em !important;padding-top:2em !important;}
 .description-image .medium-7{padding-right:2em !important;}
@@ -3717,6 +3717,15 @@ body .brand-carousel .owl-controls .owl-nav .owl-next {
 @media screen and (max-width: 500px) {
 	body .sections .section .content.top_center { top: 0%; bottom: 20%; left: 20%; right: 20%; }
 	body .sections .section .content.top_right { top: 0%; bottom: 20%; left: 20%; right: 20%; }
+	/**body .sections .section .content {
+		margin: 0 auto;
+		left: 0 !important;
+		right: 0 !important;
+		max-width: 100%;
+		padding: 10px;
+		position: relative;
+	    padding: 10px 10px 20px 10px;
+	}**/
 	body .sections div h2 {
 		margin-bottom: 0px;
 	}
@@ -4272,6 +4281,25 @@ button[name=random]:hover {
 .main-image.hidden {
 
 	display: none;
+
+}
+
+div#customiser {
+
+	min-width: 100%;
+	min-height: 200px;
+
+}
+
+div#customiser, div#customiser > * {
+
+-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+-webkit-tap-highlight-color: transparent;
 
 }
 
