@@ -3756,10 +3756,6 @@ body .brand-carousel .owl-controls .owl-nav .owl-next {
 }
 
 @media screen and (max-width: 380px) {
-	body .sections .section .content.top_center { top: 10%; bottom: 10%; left: 10%; right: 10%; }
-	body .sections .section .content.top_right { top: 10%; bottom: 10%; left: 10%; right: 10%; }
-	body .sections .section .content.middle_left { top: 10%; bottom: 10%; left: 10%; right: 10%; }
-	body .sections .section .content.middle_right { top: 10%; bottom: 10%; left: 10%; right: 10%; }
 	.cart-other-gateways .cart-amazon,
 	.cart-other-gateways .cart-paypal {
 		float: left !important;
