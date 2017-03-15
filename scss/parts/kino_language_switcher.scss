@@ -69,3 +69,34 @@
 	}
 
 }
+
+@media screen and (max-width: 400px) {
+
+	.kino-language-switcher {
+
+		width: 15px;
+		margin-left: 5px;
+
+		.selected {
+
+			padding-left: 0;
+
+			i.left {
+
+				display: none;
+
+			}
+
+			
+
+		}
+
+		.other-languages {
+
+			left: -25px;
+
+		}
+
+	}
+
+}
