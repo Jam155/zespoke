@@ -300,6 +300,16 @@ body {
 
 }
 
+@media screen and (max-width: 640px) {
+
+	.owl-carousel.owl-loaded.mobile-slider {
+
+		display: block;
+
+	}
+
+}
+
 body .imageslider .owl-carousel .owl-stage-outer {
 
 	z-index: 999;
