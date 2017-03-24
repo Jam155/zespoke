@@ -67,7 +67,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	
 	<div class="small-12 medium-6 product-left">
 
+		<?php if (current_user_can('edit_post')): ?>
 		<button name="featured_image">Use Image as Featured</button>
+		<?php endif; ?>
 		
 		<div class="customiser" id="customiser">
 			
