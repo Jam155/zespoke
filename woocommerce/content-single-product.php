@@ -67,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	
 	<div class="small-12 medium-6 product-left">
 
-		<!--button name="featured_image">Use Image as Featured</button-->
+		<button name="featured_image">Use Image as Featured</button>
 		
 		<div class="customiser" id="customiser">
 			
