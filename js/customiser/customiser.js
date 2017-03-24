@@ -819,8 +819,18 @@
 		defaultTextures.each(function(i) {
 
 			var $input = jQuery(this);
-			sides.push($input.closest('.ac-row').data('side'));
-			textureIds.push($input.data('texture'));
+			var sideName = $input.closest('.ac-row').data('side');
+
+			if (sideName) {
+
+				sides.push(sideName);
+				textureIDs.push($input.data('texture');
+
+			} else {
+
+				loadingTextures--;
+
+			}
 
 		});
 
