@@ -1617,11 +1617,77 @@ function important_styles() {
 
 	$styles = "<style>" . file_get_contents(get_template_directory() . "/css/important.css") . "</style>";
 
-	//$styles = "<style>";
-	//$styles .= "body { background-color: white; padding: 0; margin: 0; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-weight: normal; line-height: 1.5; color: #0a0a0a; background: #fefefe; -webkit-font-smoothing: antialiased; } html,body { height: 100%; }";
-	//$styles .= "</style>";
-
 	echo $styles;
 }
+
+function save_featured_image() {
+
+	$product_id = $_POST['product_id'];
+	$image = $_POST['image'];
+
+	/*echo json_encode($image);
+	wp_die();*/
+
+	$image = str_replace('data:image/jpeg;base64,', '', $image);
+	$image = str_replace(' ', '+', $image);
+
+	$image_data = base64_decode($image);
+	$tfilename = wp_tempnam();
+	$tfile = file_put_contents($tfilename, $image_data);
+
+	$uploaded_image = array(
+
+		'name' => 'featured_' . $product_id . '.jpeg',
+		'type' => 'image/jpeg',
+		'tmp_name' => $tfilename,
+		'error' => 0,
+		'size' => filesize($tfilename),
+
+	);
+
+	$overrides = array(
+
+		'test_form' => false,
+		'test_size' => true,
+
+	);
+
+	$results = wp_handle_sideload($uploaded_image, $overrides);
+
+	$wp_filetype = wp_check_filetype($results['file'], null);
+
+	$attachment = array(
+
+		'post_mime_type' => $results['type'],
+		'post_title' => 'featured_' . $product_id,
+		'post_content' => '',
+		'post_status' => 'inherit',
+
+	);
+
+	$attach_id = wp_insert_attachment($attachment, $results['file'], $product_id);
+	$attach_data = wp_generate_attachment_metadata($attach_id, $results['file']);
+	$res1 = wp_update_attachment_metadata($attach_id, $attach_data);
+	$res2 = set_post_thumbnail($product_id, $attach_id);
+
+	unlink($tfilename);
+
+	echo json_encode(array(
+	
+		'attachment_id' => $attach_id,
+		'attach_data' => $attach_data,
+		'results' => $results,
+		'meta' => $res1,
+		'response' => $res2,
+
+	));
+
+	wp_die();
+
+}
+
+add_action('wp_ajax_save_featured_image', 'save_featured_image');
+add_action('wp_ajax_nopriv_save_featured_image', 'save_featured_image');
+
 
 ?>
