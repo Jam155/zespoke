@@ -72,18 +72,6 @@
 		<a href="#products" class="anchor-btn"><span class="screen-reader-text">Scroll to categories</span></a>
 	</div>
 </div>
-
-<script>
-$('a[href^="#"]').on('click', function(event) {
-    var target = $(this.getAttribute('href'));
-    if( target.length ) {
-        event.preventDefault();
-        $('html, body').stop().animate({
-            scrollTop: target.offset().top + -30
-        }, 1000);
-    }
-});
-</script>
 	
 <div class="row sections no-border home-product-features" id="products">
 

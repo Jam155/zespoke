@@ -18,9 +18,15 @@
 	<!--[if lt IE 9]>
 	<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/html5.js"></script>
 	<![endif]-->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-	<script src="https://www.zespoke.com/wp-content/themes/zespoke/js/header.js" type="text/javascript" async="async"></script>
-	<script src="https://www.zespoke.com/wp-content/themes/zespoke/js/homepage.js" type="text/javascript" async="async"></script>
+	
+	<?php if (!(is_front_page() || is_home())) {?>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+		<script src="https://www.zespoke.com/wp-content/themes/zespoke/js/header.js" type="text/javascript" async="async"></script>
+		<script src="https://www.zespoke.com/wp-content/themes/zespoke/js/homepage.js" type="text/javascript" async="async"></script>
+
+	<?php } ?>
+	
 	<?php wp_localize_script('mylib', 'WPURLS', array( 'siteurl' => get_option('siteurl') )); ?>
 	
 	<script type="text/javascript">

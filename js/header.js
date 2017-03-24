@@ -23,14 +23,18 @@ jQuery(document).ready(function() {
 
 	});
 
-	jQuery('.owl-review').owlCarousel({
-        	autoplay:true,
-        	autoplayTimeout:8000,
-        	autoplayHoverPause:false,
-        	loop:true,
-        	dots:false,
-        	items:1
-	});
+	setTimeout(function() {
+
+		jQuery('.owl-review').owlCarousel({
+			autoplay:true,
+			autoplayTimeout:8000,
+			autoplayHoverPause:false,
+			loop:true,
+			dots:false,
+			items:1
+		});
+
+	}, 500);
 
 	jQuery('.brand-carousel').owlCarousel({
 
