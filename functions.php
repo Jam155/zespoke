@@ -1625,8 +1625,22 @@ function save_featured_image() {
 	$product_id = $_POST['product_id'];
 	$image = $_POST['image'];
 
-	/*echo json_encode($image);
-	wp_die();*/
+	$original_image = get_post_thumbnail_id($product_id);
+
+	if ($original_image != "") {
+		
+		$original_content = get_post($original_image);
+		$original_excerpt = get_the_excerpt($original_image);
+
+		$original_image_data = array(
+
+			'image_id' => $original_image,
+			'post' => $original_content,
+			'excerpt' => $original_excerpt,
+
+		);
+
+	}
 
 	$image = str_replace('data:image/jpeg;base64,', '', $image);
 	$image = str_replace(' ', '+', $image);
@@ -1654,13 +1668,20 @@ function save_featured_image() {
 
 	$results = wp_handle_sideload($uploaded_image, $overrides);
 
+	if ($original_image != "") {
+
+		$post_meta = update_post_meta($original_image, '_wp_attached_file', $results['url']);
+		echo json_encode($results['url']);
+		wp_die();
+
+	}
+
 	$wp_filetype = wp_check_filetype($results['file'], null);
 
 	$attachment = array(
 
 		'post_mime_type' => $results['type'],
 		'post_title' => 'featured_' . $product_id,
-		'post_content' => '',
 		'post_status' => 'inherit',
 
 	);
