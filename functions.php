@@ -1670,8 +1670,12 @@ function save_featured_image() {
 
 	if ($original_image != "") {
 
+		$url = parse_url($results['url']);
+		$path = $url["path"];
+		$path = str_replace("/wp-content/uploads/", "", $path);
+
 		$post_meta = update_post_meta($original_image, '_wp_attached_file', $results['url']);
-		echo json_encode($results['url']);
+		echo json_encode($post_meta);
 		wp_die();
 
 	}
