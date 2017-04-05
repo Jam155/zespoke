@@ -126,7 +126,7 @@ Lighting.prototype.forEach = function(each) {
 
 }
 
-Lighting.prototype.initLighting = function(scene) {
+Lighting.prototype.initLighting = function(scene, callback) {
 
 	var Lighting = this;
 
@@ -151,6 +151,8 @@ Lighting.prototype.initLighting = function(scene) {
 
 			Lighting.addAmbientLight(data.AmbientColour);
 			Lighting.addLightsToScene(scene);
+
+			callback();
 
 		}
 

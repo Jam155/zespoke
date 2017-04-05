@@ -426,8 +426,9 @@
 					initCamera();
 					initScene();
 					initRenderer();
-					Lighting.initLighting(scene);
-					loadTableObject(data.Object_File, data.Material_File, product, scale, rotation, xtrans, ytrans);
+					Lighting.initLighting(scene, function() {
+						loadTableObject(data.Object_File, data.Material_File, product, scale, rotation, xtrans, ytrans);
+					});
 
 				},
 				error: function(err) {
