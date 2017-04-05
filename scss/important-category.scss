@@ -1,3 +1,32 @@
+
+a {
+
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color 0.25s ease-out, color 0.25s ease-out;
+
+}
+
+@media screen and (max-width: 0em), screen and (min-width: 40em) {
+
+	.show-for-small-only {
+
+		display: none !important;
+
+	}
+
+}
+
+@media screen and (min-width: 64em) {
+
+	.hide-for-large {
+
+		display: none;
+
+	}
+
+}
+
 @import 'foundation/foundation.min.scss';
 @import 'parts/kino-page-setup.scss';
 
@@ -7,3 +36,56 @@
 
 @import 'parts/kino_language_switcher.scss';
 @import 'parts/kino_responsive_cart.scss';
+
+
+//Category Stuff.
+
+.fancy {
+	
+	font-family: 'Zeyada' !important;
+	font-size: 22pt;
+	color: #1392a9;
+	text-transform: none;
+	font-weight: 400;
+	font-style: normal;
+
+}
+
+.productcatintro {
+
+	.left {
+
+		strong {
+
+			font-size: 18px;
+			text-transform: uppercase;
+			font-weight: 500;
+			color: #4C4C4C;
+			font-family: 'Poppins';
+
+		}
+
+		.fancy {
+
+			font-weight: 100;
+			margin-right: 8px;
+			font-size: 34px;
+
+		}
+
+	}
+
+	.right {
+
+		text-align: center;
+		padding-left: 1pc;
+
+		img {
+
+			margin-top: 1.5em;
+
+		}
+
+	}
+
+}
