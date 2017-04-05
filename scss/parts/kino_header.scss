@@ -1,0 +1,157 @@
+body > header {
+
+	> .menu {
+
+		background-color: #5badc2;
+		color: white;
+		border: 2px solid white;
+		border-left: none;
+		border-right: none;
+		margin: 0;
+		list-style-type: none;
+
+		a {
+
+			color: white;
+			padding: 0px 24px;
+			text-transform: uppercase;
+			display: inline-block;
+			font-size: 11px;
+			font-weight: 600;
+			border: 1px solid #5BADC2;
+			font-family: 'Poppins';
+
+		}
+
+	}
+
+	.logo-small {
+
+		width: 137px;
+		height: auto;
+
+	}
+
+	tel {
+
+		margin-right: 10px;
+		color: #979797;
+		font-size: 11px;
+		font-weight: 600;
+
+	}
+
+	border-bottom: 0px;
+
+	.bottom {
+
+		padding-top: 41px;
+		padding-bottom: 4px;
+		border-bottom: 1px solid #bababa;
+
+		.right {
+			
+			padding-top: 0px;
+
+		}
+
+		img {
+
+			vertical-align: middle;
+
+		}
+
+		.responsive-search {
+
+			display: none !important;
+
+		}
+
+		div.search {
+
+			position: relative;
+			width: 350px;
+			max-width: 48%;
+			height: 35px;
+			display: inline-block;
+			vertical-align: middle;
+
+			input {
+
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				padding-right: 30px;
+
+			}
+
+			.button {
+
+				position: absolute;
+				right: 0;
+				height: 39px;
+				width: 100px;
+				text-align: right;
+
+			}
+
+		}
+
+	}
+
+	.top {
+
+		position: fixed;
+		display: block;
+		margin: 0 auto;
+		background: #fff;
+		width: 100%;
+		z-index: 9999;
+		-webkit-backface-visibility: hidden;
+		border-bottom: 1px solid #dfdfdf;
+		text-transform: uppercase;
+		padding: 0px;
+		height: 30px;
+
+	}
+
+	.row {
+
+		font-family: 'Poppins';
+		padding-top: 0;
+		margin-top: 0;
+		border-top: 0;
+
+	}
+
+	ul {
+
+		margin-bottom: 0;
+		margin-left: 0;
+		padding-left: 0;
+		list-style: none;
+		font-size: 11px;
+		margin-top: 0;
+
+		li {
+			
+			display: inline-block;
+
+		}
+
+	}
+
+	.right {
+
+		text-align: right;
+		color: #979797;
+		padding-right: 0;
+		padding-top: 0;
+		font-size: 0.69rem;
+		font-weight: 600;
+
+	}
+
+}
