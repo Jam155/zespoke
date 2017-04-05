@@ -3,6 +3,7 @@ bower_components
 node_modules
 npm-debug.log
 .swp
+*.swp
 .sass-cache
 .bowerrc
 .save
