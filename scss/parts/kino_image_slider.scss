@@ -1,0 +1,152 @@
+.imageslider {
+
+	margin-top: 10px;
+	padding-bottom: 2px;
+	border-bottom: 1px solid #dfdfdd;
+	position: relative;
+
+	.owl-dots {
+
+		z-index: 999;
+		position: absolute;
+		bottom: 0;
+		right: 8px;
+
+		.owl-dot {
+
+			height: 8px;
+			width: 8px;
+			background-color: transparent;
+			border: 2px solid #4a4a4a;
+			border-radius: 8px;
+			display: inline-block;
+			margin-right: 4px;
+
+		}
+
+	}
+
+	.owl-controls {
+
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+
+		.owl-nav {
+
+			position: absolute;
+			width: 100%;
+			top: 50%;
+			z-index: 999;
+
+			.owl-next, .owl-prev {
+
+				cursor: pointer;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+
+			}
+
+			.owl-prev {
+
+				position: absolute;
+				left: 20px;
+				top: -17px;
+				color: transparent;
+				width: 14px;
+				height: 25px;
+				background-repeat: no-repeat;
+
+			}
+
+			.owl-next {
+
+				width: 14px;
+				height: 25px;
+				position: absolute;
+				top: -17px;
+				right: 20px;
+				color: transparent;
+				background-position: -14px 0;
+				background-repeat: no-repeat;
+
+			}
+
+		}
+
+	}
+
+}
+
+.owl-carousel.owl-loaded.mobile-slider {
+
+	display: none;
+
+}
+
+body .imageslider .owl-carousel .owl-stage-outer {
+
+	z-index: 999;
+
+}
+
+.owl-carousel, .owl-stage-outer {
+
+	position: relative;
+	overflow: hidden;
+
+}
+
+.owl-carousel {
+
+	.owl-item {
+
+		position: relative;
+		min-height: 1px;
+		float: left;
+		-webkit-backface-visibility: hidden;
+                -webkit-tap-highlight-color: transparent;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+
+		img {
+
+			transform: preserve-3d;
+			display: block;
+			width: 100%;
+			-webkit-transform-style: preserve-3d;
+			height: auto;
+			width: initial !important;
+			margin: 0 auto;
+
+		}
+
+	}
+
+	.owl-stage {
+		
+		position: relative;
+		-ms-touch-action: pan-Y;
+
+	}
+
+	&.owl-loaded {
+
+		display: block;
+		-ms-touch-action: pan-Y;
+
+	}
+
+	width: 100%;
+	-webkit-tap-highlight-color: transparent;
+	position: relative;
+	z-index: 1;
+
+}
