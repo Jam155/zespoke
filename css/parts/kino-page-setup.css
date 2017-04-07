@@ -1,0 +1,50 @@
+html, body {
+  height: 100%;
+  box-sizing: border-box; }
+
+h2 {
+  font-family: 'Poppins';
+  font-weight: bold;
+  font-size: 16px;
+  color: #4c4c4c; }
+
+p {
+  font-family: 'Varela';
+  font-size: 12px;
+  color: #979696; }
+
+*, *::before, *::after {
+  box-sizing: inherit; }
+
+body {
+  background-color: white;
+  padding: 0;
+  margin: 0;
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #0a0a0a;
+  background: #fefefe;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.nopadding {
+  padding-left: 0;
+  padding-right: 0; }
+
+.nopaddingleft {
+  padding-left: 0; }
+
+.nopaddingright {
+  padding-right: 0; }
+
+.no-border {
+  border: none;
+  margin-top: 15px; }
+
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome; }
+
+/*# sourceMappingURL=kino-page-setup.css.map */

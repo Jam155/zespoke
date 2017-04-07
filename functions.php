@@ -1634,11 +1634,18 @@ add_action('wp_head', 'important_styles', 100);
 
 function important_styles() {
 
-	$styles = "<style>" . file_get_contents(get_template_directory() . "/css/important.css") . "</style>";
+	$styles = "";
 
-	//$styles = "<style>";
-	//$styles .= "body { background-color: white; padding: 0; margin: 0; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-weight: normal; line-height: 1.5; color: #0a0a0a; background: #fefefe; -webkit-font-smoothing: antialiased; } html,body { height: 100%; }";
-	//$styles .= "</style>";
+	if (is_front_page()) {
+	
+		$styles = "<style>" . file_get_contents(get_template_directory() . "/css/important.css") . "</style>";
+
+	} else if (is_product_category()) {
+
+		$styles = "<style>" . file_get_contents(get_template_directory() . "/css/important-category.css") . "</style>";
+
+	}
+
 
 	echo $styles;
 }
