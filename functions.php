@@ -131,14 +131,14 @@ function cart_custom_redirect_continue_shopping() {
 
 add_filter('woocommerce_continue_shopping_redirect', 'cart_custom_redirect_continue_shopping');
 
-function add_styles() {
+/*function add_styles() {
 
 	wp_enqueue_style('app2css', get_template_directory_uri() . '/css/n_app.css');
 	wp_enqueue_style('lightboxcss', get_template_directory_uri() . '/css/lightbox.css');
 	wp_enqueue_style('owlcss', get_template_directory_uri() . '/owl/assets/owl.carousel.css');
 	wp_enqueue_style('languageswitcher', get_template_directory_uri() . '/css/language-switcher.css');
 
-}
+}*/
 
 add_action('init', 'create_zespoke_content');
 add_action('init', 'create_zespoke_customer_reviews');
@@ -1601,11 +1601,18 @@ add_action('wp_head', 'important_styles', 100);
 
 function important_styles() {
 
-	$styles = "<style>" . file_get_contents(get_template_directory() . "/css/important.css") . "</style>";
+	$styles = "";
 
-	//$styles = "<style>";
-	//$styles .= "body { background-color: white; padding: 0; margin: 0; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; font-weight: normal; line-height: 1.5; color: #0a0a0a; background: #fefefe; -webkit-font-smoothing: antialiased; } html,body { height: 100%; }";
-	//$styles .= "</style>";
+	if (is_front_page()) {
+	
+		$styles = "<style>" . file_get_contents(get_template_directory() . "/css/important.css") . "</style>";
+
+	} else if (is_product_category()) {
+
+		$styles = "<style>" . file_get_contents(get_template_directory() . "/css/important-category.css") . "</style>";
+
+	}
+
 
 	echo $styles;
 }
